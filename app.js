@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Action Buttons
   const btnQuickDemo = document.getElementById('btnQuickDemo');
-  const btnGasSettings = document.getElementById('btnGasSettings');
   const btnExportImage = document.getElementById('btnExportImage');
   const btnExportPdf = document.getElementById('btnExportPdf');
   const btnSubmitGas = document.getElementById('btnSubmitGas');
@@ -79,14 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pSigPicName = document.getElementById('p_sig_pic_name');
   const pSigPicDate = document.getElementById('p_sig_pic_date');
 
-  // Modals & Overlay
-  const gasModal = document.getElementById('gasModal');
-  const btnCloseGasModal = document.getElementById('btnCloseGasModal');
-  const gasUrlInput = document.getElementById('gasUrlInput');
-  const btnTestGas = document.getElementById('btnTestGas');
-  const btnSaveGas = document.getElementById('btnSaveGas');
-  const gasStatusBox = document.getElementById('gasStatusBox');
-  const gasStatusText = document.getElementById('gasStatusText');
+  // Loading Overlay & Toast
 
   const loadingOverlay = document.getElementById('loadingOverlay');
   const loadingTitle = document.getElementById('loadingTitle');
@@ -146,18 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateNotesPreview() {
     const text = inputCatatan.value.trim();
-    const lines = text ? text.split('\n') : [];
-    
-    // Distribute into 4 ruled lines
-    const line1 = document.getElementById('p_catatan_line1');
-    const line2 = document.getElementById('p_catatan_line2');
-    const line3 = document.getElementById('p_catatan_line3');
-    const line4 = document.getElementById('p_catatan_line4');
-
-    line1.textContent = lines[0] || '';
-    line2.textContent = lines[1] || '';
-    line3.textContent = lines[2] || '';
-    line4.textContent = lines[3] || (lines.slice(3).join(' ') || '');
+    const notesEl = document.getElementById('p_catatan_text');
+    if (notesEl) {
+      notesEl.textContent = text;
+    }
   }
 
   function updateStatusPekerjaanPreview() {
@@ -381,22 +365,40 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!posterEl) throw new Error('Elemen poster tidak ditemukan');
 
     updateMetadata();
+    updateNotesPreview();
+    updateStatusPekerjaanPreview();
 
-    // Render dengan html2canvas skala 2x (300 DPI super tajam, bebas error addColorStop)
-    return await html2canvas(posterEl, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      backgroundColor: '#ffffff',
-      onclone: (clonedDoc) => {
-        const clonedPoster = clonedDoc.getElementById('cctvPosterDocument');
-        if (clonedPoster) {
-          clonedPoster.style.boxShadow = 'none';
-          clonedPoster.style.borderRadius = '0';
-          clonedPoster.style.margin = '0';
+    // Aktifkan poster secara terstruktur dan aman di layer belakang (berfungsi dari tab Form Input, Split, maupun Preview)
+    document.body.classList.add('is-exporting-capture');
+
+    // Beri jeda 80ms untuk menjamin layout & font browser siap di-render
+    await new Promise(resolve => setTimeout(resolve, 80));
+
+    try {
+      return await html2canvas(posterEl, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        windowWidth: 1400,
+        scrollX: 0,
+        scrollY: 0,
+        onclone: (clonedDoc) => {
+          const clonedPoster = clonedDoc.getElementById('cctvPosterDocument');
+          if (clonedPoster) {
+            clonedPoster.style.display = 'flex';
+            clonedPoster.style.visibility = 'visible';
+            clonedPoster.style.opacity = '1';
+            clonedPoster.style.boxShadow = 'none';
+            clonedPoster.style.borderRadius = '0';
+            clonedPoster.style.margin = '0';
+            clonedPoster.style.width = '1200px';
+          }
         }
-      }
-    });
+      });
+    } finally {
+      document.body.classList.remove('is-exporting-capture');
+    }
   }
 
   // Export PNG Image
@@ -473,68 +475,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   // 6. GOOGLE APPS SCRIPT (GAS) INTEGRATION
   // --------------------------------------------------------------------------
-  btnGasSettings.addEventListener('click', () => {
-    const savedUrl = localStorage.getItem(STORAGE_KEYS.GAS_URL) || DEFAULT_GAS_URL;
-    gasUrlInput.value = savedUrl;
-    gasStatusBox.style.display = 'none';
-    gasModal.classList.add('open');
-  });
-
-  btnCloseGasModal.addEventListener('click', () => {
-    gasModal.classList.remove('open');
-  });
-
-  btnSaveGas.addEventListener('click', () => {
-    const url = gasUrlInput.value.trim();
-    if (url) {
-      localStorage.setItem(STORAGE_KEYS.GAS_URL, url);
-      showToast('URL Google Apps Script berhasil disimpan!', 'success');
-    } else {
-      localStorage.removeItem(STORAGE_KEYS.GAS_URL);
-      showToast('URL GAS dikembalikan ke default.', 'info');
-    }
-    gasModal.classList.remove('open');
-  });
-
-  btnTestGas.addEventListener('click', async () => {
-    const url = gasUrlInput.value.trim() || DEFAULT_GAS_URL;
-    if (!url) {
-      alert('Silakan masukkan URL Web App Google Apps Script terlebih dahulu.');
-      return;
-    }
-
-    gasStatusBox.style.display = 'flex';
-    gasStatusBox.className = 'connection-status-box';
-    gasStatusText.textContent = 'Menguji koneksi ke Google Apps Script...';
-
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' }
-      });
-      const data = await response.json();
-      if (data && data.status === 'ok') {
-        gasStatusBox.className = 'connection-status-box ok';
-        gasStatusText.textContent = `✓ Koneksi Berhasil! API aktif (${data.service || 'Ready'})`;
-      } else {
-        throw new Error('Format response tidak sesuai');
-      }
-    } catch (err) {
-      gasStatusBox.className = 'connection-status-box err';
-      gasStatusText.textContent = '✕ Gagal terhubung. Pastikan Web App diset ke "Who has access: Anyone".';
-    }
-  });
-
   // Submit to Google Spreadsheet via GAS Web App
   async function submitToGoogleSheets() {
-    let gasUrl = localStorage.getItem(STORAGE_KEYS.GAS_URL) || DEFAULT_GAS_URL;
-    if (!gasUrl) {
-      const ask = confirm('URL Google Apps Script belum dikonfigurasi. Apakah Anda ingin mengaturnya sekarang?');
-      if (ask) {
-        gasModal.classList.add('open');
-      }
-      return;
-    }
+    const gasUrl = (window.GAS_BACKEND_URL && window.GAS_BACKEND_URL.trim()) || DEFAULT_GAS_URL;
 
     // Validation
     const site = inputSite.value.trim();
@@ -610,6 +553,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   btnSubmitGas.addEventListener('click', submitToGoogleSheets);
+
+  // Tombol aksi di bagian bawah formulir input (Form Input View)
+  const btnFormExportImage = document.getElementById('btnFormExportImage');
+  const btnFormExportPdf = document.getElementById('btnFormExportPdf');
+  const btnFormSubmitGas = document.getElementById('btnFormSubmitGas');
+  const btnFormViewPreview = document.getElementById('btnFormViewPreview');
+
+  if (btnFormExportImage) btnFormExportImage.addEventListener('click', exportAsImage);
+  if (btnFormExportPdf) btnFormExportPdf.addEventListener('click', exportAsPdf);
+  if (btnFormSubmitGas) btnFormSubmitGas.addEventListener('click', submitToGoogleSheets);
+  if (btnFormViewPreview) btnFormViewPreview.addEventListener('click', () => setViewMode('preview'));
 
   // --------------------------------------------------------------------------
   // 7. QUICK DEMO DATA FILLER (Isi Contoh)
