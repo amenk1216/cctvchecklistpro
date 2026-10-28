@@ -1546,12 +1546,12 @@ textarea:focus {
   font-weight: 800;
 }
 
-/* Signatures & Konfirmasi in Poster */
+/* Konfirmasi Teknisi & PIC in Poster (Tanpa Tanda Tangan) */
 .sig-card-content {
-  padding: 8px 10px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   flex: 1;
   justify-content: center;
 }
