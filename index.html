@@ -41,7 +41,7 @@
         <div class="progress-info">
           <span class="progress-label">Kelengkapan Checklist:</span>
           <span id="headerProgressPercent" class="progress-percent">0%</span>
-          <span id="headerProgressCount" class="progress-count">(0/35 Item)</span>
+          <span id="headerProgressCount" class="progress-count">(0/36 Item)</span>
         </div>
         <div class="progress-track">
           <div id="headerProgressBar" class="progress-fill" style="width: 0%;"></div>
@@ -101,13 +101,13 @@
           PDF
         </button>
 
-        <button id="btnSubmitGas" class="action-btn btn-success" title="Kirim &amp; simpan data ke Google Spreadsheet">
+        <button id="btnSubmitGas" class="action-btn btn-success" title="Simpan data formulir">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
             <polyline points="17 21 17 13 7 13 7 21"></polyline>
             <polyline points="7 3 7 8 15 8"></polyline>
           </svg>
-          Simpan ke Sheet
+          Simpan File
         </button>
       </div>
     </div>
@@ -464,6 +464,11 @@
                 <span class="custom-checkbox"></span>
                 <span class="item-text">Serah terima ke PIC site</span>
               </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d10" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Dismantle</span>
+              </label>
             </div>
 
             <!-- Normal Status Verified Banner -->
@@ -564,7 +569,7 @@
               </button>
               <button type="button" class="action-btn btn-success" id="btnFormSubmitGas">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                Simpan ke Sheets
+                Simpan File
               </button>
             </div>
 
@@ -939,6 +944,7 @@
                   <li id="p_item_d7"><span class="box-check"></span><span class="txt">Remote access berfungsi</span></li>
                   <li id="p_item_d8"><span class="box-check"></span><span class="txt">Dokumentasi seluruh sistem</span></li>
                   <li id="p_item_d9"><span class="box-check"></span><span class="txt">Serah terima ke PIC site</span></li>
+                  <li id="p_item_d10"><span class="box-check"></span><span class="txt">Dismantle</span></li>
                 </ul>
 
                 <!-- Illustration Art for Multi-Screen & Verified Seal -->
@@ -1028,7 +1034,7 @@
               </div>
             </div>
 
-            <!-- Col 3: Teknisi (Nama, Tanda Tangan Fisik, Tanggal) -->
+            <!-- Col 3: Teknisi (Nama, Tanggal) -->
             <div class="bottom-box box-sig">
               <div class="bottom-box-title title-blue">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -1041,11 +1047,6 @@
                   <span class="sf-val" id="p_sig_teknisi_name">-</span>
                 </div>
                 <div class="sig-field-row">
-                  <span class="sf-lbl">Tanda tangan</span>
-                  <span class="sf-colon">:</span>
-                  <span class="sf-val sf-line-sign">...................................................</span>
-                </div>
-                <div class="sig-field-row">
                   <span class="sf-lbl">Tanggal</span>
                   <span class="sf-colon">:</span>
                   <span class="sf-val" id="p_sig_teknisi_date">-</span>
@@ -1053,7 +1054,7 @@
               </div>
             </div>
 
-            <!-- Col 4: PIC Site (Nama, Tanda Tangan Fisik, Tanggal) -->
+            <!-- Col 4: PIC Site (Nama, Tanggal) -->
             <div class="bottom-box box-sig">
               <div class="bottom-box-title title-teal">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
@@ -1064,11 +1065,6 @@
                   <span class="sf-lbl">Nama</span>
                   <span class="sf-colon">:</span>
                   <span class="sf-val" id="p_sig_pic_name">-</span>
-                </div>
-                <div class="sig-field-row">
-                  <span class="sf-lbl">Tanda tangan</span>
-                  <span class="sf-colon">:</span>
-                  <span class="sf-val sf-line-sign">...................................................</span>
                 </div>
                 <div class="sig-field-row">
                   <span class="sf-lbl">Tanggal</span>
