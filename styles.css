@@ -1,1857 +1,1122 @@
-/* ==========================================================================
-   CCTV CHECKLIST & SISTEM PRO - ULTRA-PREMIUM MODERN STYLESHEET (V2)
-   ========================================================================== */
-
-:root {
-  /* Tech Color System */
-  --bg-primary: #0a0f1d;
-  --bg-secondary: #0f172a;
-  --bg-card: rgba(15, 23, 42, 0.85);
-  --border-color: rgba(148, 163, 184, 0.15);
-  --border-focus: #0284c7;
-
-  /* Theme Accents */
-  --color-blue: #0284c7;
-  --color-blue-dark: #002959;
-  --color-green: #10b981;
-  --color-green-dark: #047857;
-  --color-orange: #f97316;
-  --color-orange-dark: #c2410c;
-  --color-purple: #8b5cf6;
-  --color-purple-dark: #6d28d9;
-  --color-yellow: #facc15;
-  --color-danger: #ef4444;
-
-  /* Typography Colors */
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
-  --text-inverted: #0f172a;
-
-  /* Shadows & Glassmorphism */
-  --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-
-  /* Dimensions */
-  --header-height: 72px;
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-display: 'Outfit', var(--font-sans);
-  --font-mono: 'JetBrains Mono', monospace;
-}
-
-/* Base Reset & Box Sizing */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: var(--font-sans);
-  background: var(--bg-primary);
-  color: var(--text-main);
-  min-height: 100vh;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-/* ==========================================================================
-   TOP APP HEADER
-   ========================================================================== */
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  height: var(--header-height);
-  background: rgba(10, 15, 29, 0.95);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.header-container {
-  max-width: 1720px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.brand-group {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-shrink: 0;
-}
-
-.brand-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: #0284c7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
-}
-
-.brand-icon svg {
-  width: 24px;
-  height: 24px;
-}
-
-.brand-text h1 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #fff;
-}
-
-.brand-text h1 span {
-  color: #38bdf8;
-  font-weight: 900;
-}
-
-.brand-text p {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-/* Header Progress Bar */
-.header-progress-wrap {
-  flex: 1;
-  max-width: 360px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.progress-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.progress-label {
-  color: var(--text-muted);
-}
-
-.progress-percent {
-  color: #38bdf8;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
-.progress-count {
-  color: var(--text-dim);
-  font-size: 0.72rem;
-}
-
-.progress-track {
-  width: 100%;
-  height: 7px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: #0284c7;
-  border-radius: 999px;
-  transition: width 0.35s ease;
-}
-
-/* View Switcher Tabs */
-.view-switcher {
-  display: flex;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 3px;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-}
-
-.switch-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.85rem;
-  border: none;
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-family: var(--font-sans);
-  border-radius: 7px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.switch-btn svg {
-  width: 15px;
-  height: 15px;
-}
-
-.switch-btn.active {
-  background: #0284c7;
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
-}
-
-.switch-btn:hover:not(.active) {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-/* Header Action Buttons */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.5rem 0.9rem;
-  border-radius: 9px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  font-family: var(--font-sans);
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.action-btn svg {
-  width: 16px;
-  height: 16px;
-}
-
-.btn-ghost {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-muted);
-  border-color: var(--border-color);
-}
-.btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-main);
-}
-
-.btn-outline {
-  background: transparent;
-  color: #38bdf8;
-  border-color: rgba(56, 189, 248, 0.35);
-}
-.btn-outline:hover {
-  background: rgba(56, 189, 248, 0.1);
-  border-color: #38bdf8;
-}
-
-.btn-primary {
-  background: #0284c7;
-  color: #fff;
-  box-shadow: 0 3px 12px rgba(2, 132, 199, 0.35);
-}
-.btn-primary:hover {
-  background: #0369a1;
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background: #6366f1;
-  color: #fff;
-  box-shadow: 0 3px 12px rgba(99, 102, 241, 0.35);
-}
-.btn-secondary:hover {
-  background: #4f46e5;
-  transform: translateY(-1px);
-}
-
-.btn-success {
-  background: #10b981;
-  color: #fff;
-  box-shadow: 0 3px 12px rgba(16, 185, 129, 0.35);
-}
-.btn-success:hover {
-  background: #059669;
-  transform: translateY(-1px);
-}
-
-/* ==========================================================================
-   MAIN LAYOUT & SWITCHING
-   ========================================================================== */
-.main-layout {
-  max-width: 1720px;
-  margin: 0 auto;
-  padding: 1.5rem 1.25rem 3rem;
-  display: grid;
-  gap: 1.5rem;
-}
-
-/* Single Form Layout */
-.layout-form {
-  grid-template-columns: minmax(0, 1fr);
-  max-width: 900px;
-}
-.layout-form .preview-pane {
-  display: none;
-}
-
-/* Single Preview Layout */
-.layout-preview {
-  grid-template-columns: minmax(0, 1fr);
-  max-width: 1400px;
-}
-.layout-preview .form-pane {
-  display: none;
-}
-.layout-preview .preview-pane {
-  display: block;
-}
-
-/* Split Layout (Side by Side) */
-.layout-split {
-  grid-template-columns: 1fr 1.15fr;
-  align-items: start;
-}
-.layout-split .form-pane,
-.layout-split .preview-pane {
-  display: block;
-}
-
-/* ==========================================================================
-   CARDS & FORM CONTROLS
-   ========================================================================== */
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: var(--glass-shadow);
-  margin-bottom: 1.5rem;
-  overflow: hidden;
-}
-
-.card-toolbar {
-  padding: 0.9rem 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  background: rgba(15, 23, 42, 0.9);
-}
-
-.toolbar-stats {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.badge {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.6rem;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-}
-
-.badge-site { border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
-.badge-date { border-color: rgba(139, 92, 246, 0.3); color: #a78bfa; }
-.badge-cctv { border-color: rgba(16, 185, 129, 0.3); color: #34d399; font-family: var(--font-mono); }
-
-.toolbar-actions {
-  display: flex;
-  gap: 0.4rem;
-}
-
-.btn-sm {
-  padding: 0.35rem 0.65rem;
-  font-size: 0.75rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  font-family: var(--font-sans);
-  border: 1px solid var(--border-color);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-muted);
-  transition: all 0.2s;
-}
-
-.btn-sm:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-main);
-}
-
-.btn-danger-outline {
-  border-color: rgba(239, 68, 68, 0.3);
-  color: #f87171;
-}
-.btn-danger-outline:hover {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: #ef4444;
-}
-
-/* Card Header */
-.card-header {
-  padding: 1.15rem 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border-color);
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.header-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.step-num {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.1);
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  border: 1px solid rgba(56, 189, 248, 0.2);
-}
-
-.card-header h2 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.01em;
-}
-
-.section-subtitle {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
-.badge-hint {
-  font-size: 0.7rem;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 700;
-}
-
-.section-badge {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.95rem;
-  color: #fff;
-}
-
-.badge-blue { background: #0284c7; }
-.badge-green { background: #10b981; }
-.badge-orange { background: #f97316; }
-.badge-purple { background: #8b5cf6; }
-
-.btn-micro {
-  font-size: 0.72rem;
-  padding: 0.28rem 0.6rem;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: 600;
-}
-
-.btn-micro:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-}
-
-/* Card Body */
-.card-body {
-  padding: 1.4rem;
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.15rem;
-}
-
-@media (max-width: 640px) {
-  .grid-2 { grid-template-columns: 1fr; }
-}
-
-.form-group {
-  margin-bottom: 1.1rem;
-}
-
-.form-group label {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 0.45rem;
-}
-
-.form-group label svg {
-  width: 14px;
-  height: 14px;
-  color: #38bdf8;
-}
-
-.req {
-  color: var(--color-danger);
-}
-
-input[type="text"],
-input[type="number"],
-input[type="url"],
-textarea {
-  width: 100%;
-  padding: 0.7rem 0.9rem;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  color: #fff;
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-  transition: all 0.2s ease;
-}
-
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: #38bdf8;
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
-  background: rgba(15, 23, 42, 1);
-}
-
-.input-unit-duo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.input-unit-duo input {
-  max-width: 90px;
-  text-align: center;
-  font-family: var(--font-mono);
-  font-weight: 600;
-}
-
-.unit-divider {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-dim);
-}
-
-.unit-tag {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-/* ==========================================================================
-   CHECKLIST INTERACTIVE ITEMS
-   ========================================================================== */
-.checklist-items {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.check-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.7rem 0.85rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  user-select: none;
-}
-
-.check-item:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
-  transform: translateX(2px);
-}
-
-.check-item input[type="checkbox"] {
-  display: none;
-}
-
-.custom-checkbox {
-  width: 20px;
-  height: 20px;
-  border-radius: 5px;
-  border: 2px solid var(--text-dim);
-  background: transparent;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.2s ease;
-}
-
-.check-item input[type="checkbox"]:checked + .custom-checkbox {
-  background: #0284c7;
-  border-color: #0284c7;
-}
-
-.section-theme-green .check-item input[type="checkbox"]:checked + .custom-checkbox {
-  background: #10b981;
-  border-color: #10b981;
-}
-
-.section-theme-orange .check-item input[type="checkbox"]:checked + .custom-checkbox {
-  background: #f97316;
-  border-color: #f97316;
-}
-
-.section-theme-purple .check-item input[type="checkbox"]:checked + .custom-checkbox {
-  background: #8b5cf6;
-  border-color: #8b5cf6;
-}
-
-.custom-checkbox::after {
-  content: "";
-  width: 5px;
-  height: 10px;
-  border: solid #fff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg) scale(0);
-  margin-top: -2px;
-  transition: transform 0.15s ease;
-}
-
-.check-item input[type="checkbox"]:checked + .custom-checkbox::after {
-  transform: rotate(45deg) scale(1);
-}
-
-.item-text {
-  font-size: 0.86rem;
-  color: var(--text-main);
-  font-weight: 500;
-  transition: color 0.15s ease;
-}
-
-.check-item input[type="checkbox"]:checked ~ .item-text {
-  color: #fff;
-  font-weight: 600;
-}
-
-/* Special item (A5 with count) */
-.check-item-special {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.5rem 0.85rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.check-item-inner {
-  padding: 0;
-  background: transparent;
-  border: none;
-}
-.check-item-inner:hover {
-  transform: none;
-  background: transparent;
-}
-
-.item-sub-inputs {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.mini-input {
-  width: 50px !important;
-  padding: 0.35rem !important;
-  text-align: center;
-  font-size: 0.82rem !important;
-  font-family: var(--font-mono);
-}
-
-/* Verified Normal Indicator in Form */
-.verified-indicator {
-  margin-top: 1rem;
-  padding: 0.85rem 1rem;
-  border-radius: 10px;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  color: #34d399;
-  font-weight: 700;
-  font-size: 0.85rem;
-  opacity: 0.4;
-  transition: all 0.3s ease;
-}
-
-.verified-indicator.active {
-  opacity: 1;
-  background: rgba(16, 185, 129, 0.18);
-  border-color: #10b981;
-}
-
-.verified-indicator svg {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-/* ==========================================================================
-   STATUS PEKERJAAN RADIO CARDS
-   ========================================================================== */
-.status-radio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-}
-
-@media (max-width: 600px) {
-  .status-radio-grid { grid-template-columns: 1fr; }
-}
-
-.status-option input[type="radio"] {
-  display: none;
-}
-
-.option-card {
-  display: flex;
-  flex-direction: column;
-  padding: 0.85rem;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  height: 100%;
-}
-
-.option-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.radio-circle {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid var(--text-dim);
-  margin-bottom: 0.5rem;
-  transition: all 0.2s;
-}
-
-.option-title {
-  font-size: 0.88rem;
-  font-weight: 700;
-  margin-bottom: 0.2rem;
-  color: #fff;
-}
-
-.option-desc {
-  font-size: 0.72rem;
-  color: var(--text-dim);
-  line-height: 1.35;
-}
-
-.option-success input:checked ~ .option-card {
-  border-color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
-}
-.option-success input:checked ~ .option-card .radio-circle {
-  border-color: #10b981;
-  background: #10b981;
-}
-
-.option-warning input:checked ~ .option-card {
-  border-color: #f59e0b;
-  background: rgba(245, 158, 11, 0.1);
-}
-.option-warning input:checked ~ .option-card .radio-circle {
-  border-color: #f59e0b;
-  background: #f59e0b;
-}
-
-.option-danger input:checked ~ .option-card {
-  border-color: #ef4444;
-  background: rgba(239, 68, 68, 0.1);
-}
-.option-danger input:checked ~ .option-card .radio-circle {
-  border-color: #ef4444;
-  background: #ef4444;
-}
-
-/* ==========================================================================
-   RIGHT PANE: LIVE POSTER DOCUMENT (1:1 PIXEL PERFECT HIGH-RES)
-   ========================================================================== */
-.preview-pane {
-  position: relative;
-}
-
-.preview-floating-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-  background: rgba(15, 23, 42, 0.95);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
-
-.preview-hint {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #38bdf8;
-}
-
-.preview-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.btn-preview-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 7px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid var(--border-color);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-muted);
-  transition: all 0.2s;
-}
-
-.btn-preview-action svg {
-  width: 14px;
-  height: 14px;
-}
-
-.btn-preview-action:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-}
-
-.btn-preview-action-primary {
-  background: #0284c7;
-  color: #fff;
-  border-color: #0284c7;
-}
-.btn-preview-action-primary:hover {
-  background: #0369a1;
-}
-
-/* Scroll container for poster */
-.poster-scroll-wrapper {
-  overflow-x: auto;
-  padding-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-}
-
-/* ==========================================================================
-   THE POSTER CONTAINER (#cctvPosterDocument)
-   Fixed ratio canvas mimicking standard A4 Landscape
-   ========================================================================== */
-.cctv-poster {
-  width: 1200px;
-  min-width: 1200px;
-  background-color: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  overflow: hidden;
-  font-family: var(--font-sans);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 1. TOP BANNER */
-.poster-top-banner {
-  background: #002959;
-  padding: 18px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #ffffff;
-  position: relative;
-  border-bottom: 3px solid #00d2ff;
-}
-
-.banner-left {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.camera-graphic-wrap {
-  width: 155px;
-  height: 95px;
-}
-
-.cctv-camera-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.banner-headings {
-  display: flex;
-  flex-direction: column;
-}
-
-.poster-main-title {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  color: #ffffff;
-  text-transform: uppercase;
-  line-height: 1.1;
-}
-
-.poster-highlight-title {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.poster-highlight-title span {
-  font-family: var(--font-display);
-  font-size: 38px;
-  font-weight: 900;
-  color: #facc15; /* Golden Yellow */
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-
-.checklist-badge-icon {
-  width: 36px;
-  height: 44px;
-  border-radius: 6px;
-  border: 2.5px solid #38bdf8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #0284c7;
-}
-
-.checklist-badge-icon svg {
-  width: 24px;
-  height: 24px;
-  color: #ffffff;
-}
-
-.banner-right {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.tagline-box {
-  text-align: right;
-  border-right: 2px solid rgba(255, 255, 255, 0.25);
-  padding-right: 20px;
-}
-
-.tagline-text {
-  font-size: 15px;
-  color: #cbd5e1;
-  font-style: italic;
-  line-height: 1.3;
-  display: block;
-}
-
-.tagline-text strong {
-  color: #38bdf8;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.banner-devices-graphic {
-  width: 175px;
-  height: 80px;
-}
-.devices-svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* 2. METADATA ROW */
-.poster-metadata-row {
-  margin: 10px 18px 8px;
-  padding: 8px 18px;
-  background: #f8fafc;
-  border: 1.5px solid #0284c7;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.meta-col {
-  display: flex;
-  gap: 36px;
-}
-
-.meta-item {
-  display: flex;
-  align-items: center;
-  font-size: 12.5px;
-}
-
-.meta-icon {
-  width: 16px;
-  height: 16px;
-  color: #0284c7;
-  margin-right: 6px;
-  display: flex;
-  align-items: center;
-}
-.meta-icon svg {
-  width: 15px;
-  height: 15px;
-}
-
-.meta-label {
-  font-weight: 700;
-  color: #0f172a;
-  min-width: 68px;
-}
-
-.meta-colon {
-  margin: 0 6px;
-  color: #64748b;
-  font-weight: 600;
-}
-
-.meta-value {
-  font-weight: 600;
-  color: #1e293b;
-  border-bottom: 1px dotted #94a3b8;
-  padding: 0 4px;
-  min-width: 110px;
-}
-
-.bold-blue {
-  color: #0284c7;
-  font-weight: 800;
-}
-
-/* 3. FOUR SECTIONS QUADRANT GRID */
-.poster-sections-grid {
-  margin: 4px 18px 8px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.poster-box {
-  background: #ffffff;
-  border-radius: 8px;
-  border: 1.5px solid #cbd5e1;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.box-a { border-color: #0284c7; }
-.box-b { border-color: #10b981; }
-.box-c { border-color: #f97316; }
-.box-d { border-color: #8b5cf6; }
-
-/* Box Headers */
-.box-header {
-  padding: 6px 12px;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.header-blue { background: #004b99; }
-.header-green { background: #0e8c47; }
-.header-orange { background: #e36414; }
-.header-purple { background: #5b3db5; }
-
-.box-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.box-icon {
-  display: flex;
-  align-items: center;
-}
-.box-icon svg {
-  width: 16px;
-  height: 16px;
-}
-
-.box-header h3 {
-  font-size: 13.5px;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-
-/* Box Content Split */
-.box-content-split {
-  padding: 8px 12px 10px;
-  display: grid;
-  grid-template-columns: 1fr 140px;
-  gap: 10px;
-  align-items: center;
-  flex: 1;
-}
-
-/* Checklist in Poster */
-.poster-check-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.poster-check-list li {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  color: #1e293b;
-  line-height: 1.25;
-}
-
-.poster-check-list li .txt {
-  font-weight: 500;
-}
-
-/* Checked styling in poster */
-.box-check {
-  width: 14px;
-  height: 14px;
-  border: 1.5px solid #64748b;
-  border-radius: 3px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: #ffffff;
-}
-
-.poster-check-list li.checked .box-check,
-.status-row.checked .box-check {
-  background: #0284c7;
-  border-color: #0284c7;
-}
-
-.box-b .poster-check-list li.checked .box-check {
-  background: #10b981;
-  border-color: #10b981;
-}
-
-.box-c .poster-check-list li.checked .box-check {
-  background: #f97316;
-  border-color: #f97316;
-}
-
-.box-d .poster-check-list li.checked .box-check {
-  background: #8b5cf6;
-  border-color: #8b5cf6;
-}
-
-.poster-check-list li.checked .box-check::after,
-.status-row.checked .box-check::after {
-  content: "";
-  width: 3.5px;
-  height: 7px;
-  border: solid #ffffff;
-  border-width: 0 1.8px 1.8px 0;
-  transform: rotate(45deg);
-  margin-top: -1.5px;
-}
-
-.poster-check-list li.checked .txt {
-  color: #0f172a;
-  font-weight: 700;
-}
-
-/* Hardware Illustration Column */
-.box-art-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 4px;
-  background: #f8fafc;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
-}
-
-/* Art Section A */
-.art-badge-nvr {
-  text-align: center;
-  position: relative;
-}
-.art-badge-nvr .badge-tag {
-  position: absolute;
-  top: 4px;
-  left: 6px;
-  font-size: 8px;
-  font-weight: 800;
-  color: #38bdf8;
-  font-family: var(--font-mono);
-}
-.art-badge-nvr svg {
-  width: 90px;
-  height: 28px;
-}
-
-.art-hdd-wrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.hdd-pair {
-  display: flex;
-  gap: 2px;
-}
-.hdd-chip {
-  width: 24px;
-  height: 32px;
-  background: #334155;
-  border: 1px solid #0f172a;
-  border-radius: 2px;
-  color: #94a3b8;
-  font-size: 7px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hdd-label {
-  font-size: 11px;
-  font-weight: 800;
-  color: #0f172a;
-}
-
-.art-tplink-wrap {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.tplink-logo {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-.tp-icon {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #0284c7;
-  color: #fff;
-  font-weight: 900;
-  font-size: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.tp-text {
-  font-size: 10px;
-  font-weight: 800;
-  color: #0284c7;
-}
-.dongle-pic svg {
-  width: 38px;
-  height: 34px;
-}
-
-/* Art Section B */
-.art-dome-wrap svg {
-  width: 85px;
-  height: 80px;
-}
-.art-gear-badge svg {
-  width: 32px;
-  height: 32px;
-}
-
-/* Art Section C */
-.art-pc-workstation svg {
-  width: 95px;
-  height: 65px;
-}
-.art-cwerk-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.cwerk-pill {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  background: #0284c7;
-  color: #fff;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 8.5px;
-  font-weight: 800;
-}
-.cwerk-pill svg {
-  width: 9px;
-  height: 9px;
-}
-.monitor-size-badge {
-  background: #334155;
-  color: #fff;
-  font-size: 9px;
-  font-weight: 800;
-  padding: 2px 5px;
-  border-radius: 3px;
-}
-
-/* Art Section D */
-.art-wall-monitor svg {
-  width: 100px;
-  height: 65px;
-}
-.art-all-normal-seal {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: #dcfce7;
-  border: 1.5px solid #16a34a;
-  border-radius: 5px;
-  padding: 3px 6px;
-}
-.seal-icon {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #16a34a;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.seal-icon svg {
-  width: 12px;
-  height: 12px;
-}
-.seal-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.05;
-}
-.seal-text span {
-  font-size: 7.5px;
-  font-weight: 700;
-  color: #166534;
-}
-.seal-text strong {
-  font-size: 8.5px;
-  font-weight: 900;
-  color: #15803d;
-}
-
-/* 4. BOTTOM ROW: CATATAN, STATUS & TTD/KONFIRMASI */
-.poster-bottom-row {
-  margin: 4px 18px 12px;
-  display: grid;
-  grid-template-columns: 1.4fr 1.1fr 1fr 1fr;
-  gap: 10px;
-}
-
-.bottom-box {
-  background: #ffffff;
-  border: 1.5px solid #0284c7;
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.bottom-box-title {
-  padding: 5px 10px;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.title-blue { background: #004b99; }
-.title-teal { background: #006b75; }
-
-.bottom-box-title svg {
-  width: 13px;
-  height: 13px;
-}
-
-/* Catatan Ruled Lines */
-.notes-content-ruled {
-  padding: 6px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  flex: 1;
-  background: #fafafa;
-}
-
-.ruled-line {
-  min-height: 17px;
-  border-bottom: 1px dotted #94a3b8;
-  font-size: 10px;
-  color: #0f172a;
-  font-weight: 600;
-  padding: 1px 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Status Checklist */
-.status-checklist {
-  padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  flex: 1;
-}
-
-.status-row {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  color: #334155;
-  font-weight: 600;
-}
-
-.status-row.checked {
-  color: #0284c7;
-  font-weight: 800;
-}
-
-/* Signatures & Konfirmasi in Poster */
-.sig-card-content {
-  padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-  justify-content: center;
-}
-
-.sig-field-row {
-  display: flex;
-  align-items: center;
-  font-size: 10.5px;
-}
-
-.sf-lbl {
-  width: 76px;
-  color: #475569;
-  font-weight: 600;
-}
-
-.sf-colon {
-  margin: 0 4px;
-  color: #64748b;
-}
-
-.sf-val {
-  font-weight: 700;
-  color: #0f172a;
-  border-bottom: 1px dotted #cbd5e1;
-  flex: 1;
-  padding: 0 2px;
-}
-
-.sf-line-sign {
-  color: #94a3b8;
-  letter-spacing: 1px;
-  font-size: 9px;
-  border-bottom: none;
-}
-
-/* 5. POSTER FOOTER BANNER */
-.poster-footer-banner {
-  background: #002244;
-  color: #ffffff;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.footer-slogan {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: #e2e8f0;
-}
-
-.footer-slogan .dot {
-  color: #38bdf8;
-  font-size: 12px;
-}
-
-/* Corner geometric accents with clip-path (zero NaN errors) */
-.footer-accents {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 60px;
-  display: flex;
-}
-
-.accent-triangle-blue {
-  width: 30px;
-  height: 100%;
-  background: #0284c7;
-  clip-path: polygon(40% 0, 100% 0, 60% 100%, 0% 100%);
-}
-
-.accent-triangle-yellow {
-  width: 30px;
-  height: 100%;
-  background: #facc15;
-  clip-path: polygon(40% 0, 100% 0, 60% 100%, 0% 100%);
-  margin-left: -10px;
-}
-
-/* ==========================================================================
-   MODAL DIALOGS & OVERLAYS
-   ========================================================================== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 1000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.modal-overlay.open {
-  display: flex;
-  animation: fadeIn 0.2s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal-content {
-  background: #0f172a;
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  width: 100%;
-  max-width: 580px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-}
-
-.modal-header {
-  padding: 1.15rem 1.4rem;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.modal-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.modal-title svg {
-  width: 20px;
-  height: 20px;
-  color: #38bdf8;
-}
-
-.modal-title h3 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.modal-close {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-}
-.modal-close:hover { color: #fff; }
-
-.modal-body {
-  padding: 1.4rem;
-}
-
-.modal-desc {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 1.15rem;
-  line-height: 1.45;
-}
-
-.field-hint {
-  display: block;
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  margin-top: 0.4rem;
-}
-
-.connection-status-box {
-  margin-top: 0.85rem;
-  padding: 0.65rem 0.9rem;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.connection-status-box.ok {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-.connection-status-box.err {
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-.modal-guide-card {
-  margin-top: 1.25rem;
-  padding: 1rem;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
-}
-
-.modal-guide-card h4 {
-  font-size: 0.85rem;
-  color: #38bdf8;
-  margin-bottom: 0.5rem;
-}
-
-.modal-guide-card ol {
-  padding-left: 1.2rem;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.modal-guide-card code {
-  background: rgba(0, 0, 0, 0.4);
-  padding: 1px 4px;
-  border-radius: 4px;
-  color: #facc15;
-  font-family: var(--font-mono);
-}
-
-.modal-footer {
-  padding: 1rem 1.4rem;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-/* Loading Overlay */
-.loading-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 2000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-.loading-overlay.open {
-  display: flex;
-}
-
-.loading-card {
-  text-align: center;
-  background: #0f172a;
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 2rem 2.5rem;
-  max-width: 360px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-}
-
-.spinner {
-  width: 44px;
-  height: 44px;
-  border: 3.5px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #38bdf8;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto 1.2rem;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.loading-card h4 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 0.4rem;
-}
-
-.loading-card p {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* ==========================================================================
-   TOAST NOTIFICATIONS
-   ========================================================================== */
-.toast-container {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  z-index: 3000;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.toast {
-  padding: 0.8rem 1.2rem;
-  border-radius: 10px;
-  background: #0f172a;
-  color: #fff;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  font-size: 0.85rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  max-width: 400px;
-}
-
-.toast-success { border-color: #10b981; }
-.toast-success svg { color: #10b981; }
-
-.toast-error { border-color: #ef4444; }
-.toast-error svg { color: #ef4444; }
-
-.toast-info { border-color: #38bdf8; }
-.toast-info svg { color: #38bdf8; }
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ==========================================================================
-   MEDIA PRINT RULES
-   ========================================================================== */
-@media print {
-  @page {
-    size: A4 landscape;
-    margin: 0;
-  }
-
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
-
-  .app-header,
-  .form-pane,
-  .preview-floating-toolbar,
-  .modal-overlay,
-  .loading-overlay,
-  .toast-container {
-    display: none !important;
-  }
-
-  .main-layout {
-    display: block !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    max-width: none !important;
-  }
-
-  .preview-pane {
-    display: block !important;
-  }
-
-  .poster-scroll-wrapper {
-    overflow: visible !important;
-    padding: 0 !important;
-  }
-
-  .cctv-poster {
-    width: 100% !important;
-    min-width: 100% !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    page-break-inside: avoid;
-  }
-}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Instalasi CCTV & Sistem Pro | Export Gambar, PDF & Google Sheets</title>
+  <meta name="description" content="Aplikasi checklist instalasi CCTV & Sistem profesional dengan ekspor resolusi tinggi (PNG/PDF) dan integrasi Google Sheets (GAS).">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet (Mendukung style.css maupun styles.css) -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- External Libraries: html2canvas & jsPDF -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <!-- Top Navigation & Control Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+            <circle cx="12" cy="13" r="3"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>CCTV CHECKLIST <span>PRO</span></h1>
+          <p>Sistem Formulir Digital &amp; Ekspor Poster Cetak</p>
+        </div>
+      </div>
+
+      <!-- Quick Progress Bar in Header -->
+      <div class="header-progress-wrap">
+        <div class="progress-info">
+          <span class="progress-label">Kelengkapan Checklist:</span>
+          <span id="headerProgressPercent" class="progress-percent">0%</span>
+          <span id="headerProgressCount" class="progress-count">(0/35 Item)</span>
+        </div>
+        <div class="progress-track">
+          <div id="headerProgressBar" class="progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- View Switcher -->
+      <div class="view-switcher" role="tablist">
+        <button id="tabFormBtn" class="switch-btn active" role="tab" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+          Form Input
+        </button>
+        <button id="tabSplitBtn" class="switch-btn desktop-only" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="12" y1="3" x2="12" y2="21"></line>
+          </svg>
+          Split Mode
+        </button>
+        <button id="tabPreviewBtn" class="switch-btn" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          Poster Hasil
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button id="btnQuickDemo" class="action-btn btn-ghost" title="Isi data percontohan otomatis">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          Isi Contoh
+        </button>
+
+        <button id="btnExportImage" class="action-btn btn-primary" title="Export sebagai gambar PNG kualitas tinggi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export Gambar
+        </button>
+
+        <button id="btnExportPdf" class="action-btn btn-secondary" title="Export sebagai PDF A4 Landscape">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          PDF
+        </button>
+
+        <button id="btnSubmitGas" class="action-btn btn-success" title="Kirim &amp; simpan data ke Google Spreadsheet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+          Simpan ke Sheet
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="main-layout layout-form" id="mainContainer">
+    <!-- ============================================================= -->
+    <!-- LEFT PANE: FORMULIR INPUT INTERAKTIF -->
+    <!-- ============================================================= -->
+    <section class="form-pane" id="formPane">
+      <div class="form-scrollable">
+        
+        <!-- Info Banner / Fast Controls -->
+        <div class="card card-toolbar">
+          <div class="toolbar-stats">
+            <span class="badge badge-site" id="badgeSitePreview">Site: -</span>
+            <span class="badge badge-date" id="badgeDatePreview">Tanggal: -</span>
+            <span class="badge badge-cctv" id="badgeCctvPreview">CCTV: 0/0 Unit</span>
+          </div>
+          <div class="toolbar-actions">
+            <button type="button" class="btn-sm btn-outline" id="btnCheckAllGlobal">✓ Centang Semua</button>
+            <button type="button" class="btn-sm btn-outline" id="btnUncheckAllGlobal">✕ Hapus Semua</button>
+            <button type="button" class="btn-sm btn-danger-outline" id="btnResetForm">Reset</button>
+          </div>
+        </div>
+
+        <!-- Section 1: Informasi Proyek / Site -->
+        <div class="card card-section">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="step-num">01</span>
+              <h2>Informasi Proyek &amp; Teknisi</h2>
+            </div>
+            <span class="badge-hint">Data Utama</span>
+          </div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="inputSite">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  Nama Site / Lokasi <span class="req">*</span>
+                </label>
+                <input type="text" id="inputSite" placeholder="Contoh: Site Warehouse Cikarang Blok B" required>
+              </div>
+
+              <div class="form-group">
+                <label for="inputTanggal">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  Tanggal Instalasi <span class="req">*</span>
+                </label>
+                <input type="text" id="inputTanggal" placeholder="DD/MM/YYYY (Contoh: 28/10/2026)">
+              </div>
+
+              <div class="form-group">
+                <label for="inputTeknisi">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  Nama Teknisi <span class="req">*</span>
+                </label>
+                <input type="text" id="inputTeknisi" placeholder="Nama lengkap teknisi">
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                  Total CCTV (Terpasang / Target Unit)
+                </label>
+                <div class="input-unit-duo">
+                  <input type="number" id="inputCctvDone" placeholder="16" min="0">
+                  <span class="unit-divider">/</span>
+                  <input type="number" id="inputCctvTotal" placeholder="16" min="1">
+                  <span class="unit-tag">Unit</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section A: PERSIAPAN & NVR (Theme Blue) -->
+        <div class="card card-section section-theme-blue">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="section-badge badge-blue">A</span>
+              <div>
+                <h2>PERSIAPAN &amp; NVR</h2>
+                <p class="section-subtitle">Pemeriksaan fisik, perakitan rak server, storage, dan jaringan NVR</p>
+              </div>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-micro" data-action="check-all" data-target="groupA">Centang Semua</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="checklist-items" id="groupA">
+              <!-- Item A1 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a1" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">MOS (Material On Site)</span>
+              </label>
+
+              <!-- Item A2 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a2" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Pemasangan label SN (Serial Number)</span>
+              </label>
+
+              <!-- Item A3 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a3" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Dokumen list IP dari SM</span>
+              </label>
+
+              <!-- Item A4 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a4" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Pemasangan perangkat pada rack server</span>
+              </label>
+
+              <!-- Item A5 (Special: with units) -->
+              <div class="check-item-special">
+                <label class="check-item check-item-inner">
+                  <input type="checkbox" id="item_a5" data-section="A">
+                  <span class="custom-checkbox"></span>
+                  <span class="item-text">Pemasangan CCTV</span>
+                </label>
+                <div class="item-sub-inputs">
+                  <input type="text" id="item_a5_done" class="mini-input" placeholder="16" title="Jumlah terpasang">
+                  <span>/</span>
+                  <input type="text" id="item_a5_target" class="mini-input" placeholder="16" title="Total target">
+                  <span>unit</span>
+                </div>
+              </div>
+
+              <!-- Item A6 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a6" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Pemasangan &amp; aktivasi HDD NVR (2 × 8TB)</span>
+              </label>
+
+              <!-- Item A7 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a7" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting date &amp; time NVR sesuai NTP site</span>
+              </label>
+
+              <!-- Item A8 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a8" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Pemasangan dongle Wi-Fi TP-Link</span>
+              </label>
+
+              <!-- Item A9 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a9" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Koneksi NVR ke Wi-Fi setempat</span>
+              </label>
+
+              <!-- Item A10 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a10" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Instalasi remote access (RustDesk/UltraViewer)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section B: KONFIGURASI CCTV (Theme Green) -->
+        <div class="card card-section section-theme-green">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="section-badge badge-green">B</span>
+              <div>
+                <h2>KONFIGURASI CCTV</h2>
+                <p class="section-subtitle">Konfigurasi parameter kamera, watermark, IP address, dan sinkronisasi</p>
+              </div>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-micro" data-action="check-all" data-target="groupB">Centang Semua</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="checklist-items" id="groupB">
+              <label class="check-item">
+                <input type="checkbox" id="item_b1" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting watermark</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b2" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Penamaan CCTV</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b3" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting date &amp; time CCTV</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b4" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Sinkronisasi waktu dengan PC/NTP</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b5" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting IP CCTV sesuai penempatan</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b6" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Adding camera</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b7" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Adjustment CCTV</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b8" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Troubleshooting (jika ada)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section C: PC CLIENT (Theme Orange) -->
+        <div class="card card-section section-theme-orange">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="section-badge badge-orange">C</span>
+              <div>
+                <h2>PC CLIENT</h2>
+                <p class="section-subtitle">Instalasi workstation client, aplikasi CWERK, dan monitor 50"</p>
+              </div>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-micro" data-action="check-all" data-target="groupC">Centang Semua</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="checklist-items" id="groupC">
+              <label class="check-item">
+                <input type="checkbox" id="item_c1" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Instalasi &amp; konfigurasi PC client</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c2" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting date &amp; time sesuai NTP site</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c3" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting IP PC client</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c4" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Koneksi PC ke Wi-Fi setempat</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c5" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Instalasi remote access (RustDesk/UltraViewer)</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c6" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Instalasi software CWERK dari folder C:\NVR</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c7" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Menampilkan CCTV pada monitor 50"</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c8" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Memastikan seluruh CCTV tampil normal</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section D: FINAL CHECK & PENUTUP (Theme Purple) -->
+        <div class="card card-section section-theme-purple">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="section-badge badge-purple">D</span>
+              <div>
+                <h2>FINAL CHECK &amp; PENUTUP</h2>
+                <p class="section-subtitle">Pengujian end-to-end live view, playback, rekaman, dan serah terima</p>
+              </div>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-micro" data-action="check-all" data-target="groupD">Centang Semua</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="checklist-items" id="groupD">
+              <label class="check-item">
+                <input type="checkbox" id="item_d1" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Seluruh CCTV online</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d2" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Live view normal</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d3" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Recording &amp; playback normal</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d4" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">HDD terdeteksi</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d5" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Date &amp; time sinkron</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d6" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">PC client &amp; monitor normal</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d7" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Remote access berfungsi</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d8" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Dokumentasi seluruh sistem</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d9" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Serah terima ke PIC site</span>
+              </label>
+            </div>
+
+            <!-- Normal Status Verified Banner -->
+            <div class="verified-indicator" id="allSystemsOkBanner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>SEMUA SISTEM BERFUNGSI NORMAL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Catatan, Status & Konfirmasi PIC -->
+        <div class="card card-section">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="step-num">02</span>
+              <h2>Catatan, Status Pekerjaan &amp; PIC Site</h2>
+            </div>
+            <span class="badge-hint">Validasi Akhir</span>
+          </div>
+          <div class="card-body">
+            <!-- Catatan Kendala -->
+            <div class="form-group">
+              <label for="inputCatatan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                Catatan / Kendala yang Ditemukan
+              </label>
+              <textarea id="inputCatatan" rows="3" placeholder="Tuliskan catatan teknis, kendala saat instalasi, atau nomor kontak jika ada..."></textarea>
+            </div>
+
+            <!-- Status Pekerjaan Radio Selection -->
+            <div class="form-group">
+              <label>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                Status Pekerjaan <span class="req">*</span>
+              </label>
+              <div class="status-radio-grid">
+                <label class="status-option option-success">
+                  <input type="radio" name="statusPekerjaan" value="Selesai" checked>
+                  <span class="option-card">
+                    <span class="radio-circle"></span>
+                    <span class="option-title">Selesai</span>
+                    <span class="option-desc">Semua instalasi &amp; pengetesan tuntas 100%</span>
+                  </span>
+                </label>
+
+                <label class="status-option option-warning">
+                  <input type="radio" name="statusPekerjaan" value="Selesai dengan catatan">
+                  <span class="option-card">
+                    <span class="radio-circle"></span>
+                    <span class="option-title">Selesai dengan Catatan</span>
+                    <span class="option-desc">Ada follow-up kecil atau penyesuaian lapangan</span>
+                  </span>
+                </label>
+
+                <label class="status-option option-danger">
+                  <input type="radio" name="statusPekerjaan" value="Belum selesai">
+                  <span class="option-card">
+                    <span class="radio-circle"></span>
+                    <span class="option-title">Belum Selesai</span>
+                    <span class="option-desc">Pekerjaan ditunda atau belum selesai</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Data Konfirmasi Teknisi & PIC Site -->
+            <div class="grid-2" style="margin-top: 1rem;">
+              <div class="form-group">
+                <label for="sigTeknisiName">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  Nama Konfirmasi Teknisi
+                </label>
+                <input type="text" id="sigTeknisiName" placeholder="Nama lengkap teknisi">
+              </div>
+
+              <div class="form-group">
+                <label for="sigPicName">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                  Nama PIC Site / Penerima <span class="req">*</span>
+                </label>
+                <input type="text" id="sigPicName" placeholder="Contoh: Bpk. Hendra (Store Manager)">
+              </div>
+            </div>
+
+            <!-- Tombol Aksi Cepat di Bagian Bawah Formulir Input -->
+            <div class="form-actions-bottom">
+              <button type="button" class="action-btn btn-secondary" id="btnFormViewPreview">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Lihat Poster Hasil
+              </button>
+              <button type="button" class="action-btn btn-primary" id="btnFormExportImage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Export Gambar (PNG)
+              </button>
+              <button type="button" class="action-btn btn-secondary" id="btnFormExportPdf">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Simpan PDF
+              </button>
+              <button type="button" class="action-btn btn-success" id="btnFormSubmitGas">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                Simpan ke Sheets
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- RIGHT PANE: LIVE POSTER HASIL (Persis & Diperbagus dari Gambar) -->
+    <!-- ============================================================= -->
+    <section class="preview-pane" id="previewPane">
+      <div class="preview-floating-toolbar">
+        <span class="preview-hint">👁️ Live Preview Poster Hasil (1:1 High-Res)</span>
+        <div class="preview-actions">
+          <button type="button" class="btn-preview-action" id="btnPreviewRefresh" title="Segarkan Tampilan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            Refresh
+          </button>
+          <button type="button" class="btn-preview-action btn-preview-action-primary" id="btnPreviewDownload">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download PNG
+          </button>
+        </div>
+      </div>
+
+      <div class="poster-scroll-wrapper">
+        <!-- ================= POSTER ELEMENT TO CAPTURE ================= -->
+        <div class="cctv-poster" id="cctvPosterDocument">
+          
+          <!-- Poster Top Header (Vibrant Blue Dark Theme with Camera & Systems Illustration) -->
+          <div class="poster-top-banner">
+            <!-- Left Header: Camera 3D Graphic + Big Title -->
+            <div class="banner-left">
+              <div class="camera-graphic-wrap">
+                <!-- CCTV Bullet Camera Vector Art with Solid Clean Colors (Zero Gradient NaN Error) -->
+                <svg class="cctv-camera-svg" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Wall Mount Base -->
+                  <path d="M12 25 L32 35 L32 95 L12 105 Z" fill="#64748b" stroke="#334155" stroke-width="3"/>
+                  <ellipse cx="22" cy="65" rx="14" ry="38" fill="#475569"/>
+                  <!-- Mount Arm -->
+                  <path d="M28 58 L62 54 L64 74 L28 72 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+                  <!-- Ball Joint -->
+                  <circle cx="68" cy="64" r="14" fill="#94a3b8"/>
+                  <!-- Sunshield Hood -->
+                  <path d="M60 40 L168 28 C176 27 182 34 180 42 L164 88 L60 84 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+                  <!-- Camera Barrel Cylinder -->
+                  <path d="M66 50 L156 42 C162 41 166 46 164 52 L154 90 C152 94 148 97 142 97 L66 94 Z" fill="#f8fafc"/>
+                  <!-- Front Black Lens Bezel -->
+                  <ellipse cx="160" cy="68" rx="18" ry="32" fill="#0f172a" stroke="#334155" stroke-width="3"/>
+                  <!-- Infrared Ring -->
+                  <ellipse cx="160" cy="68" rx="13" ry="24" fill="#1e293b"/>
+                  <circle cx="152" cy="54" r="2.5" fill="#ef4444"/>
+                  <circle cx="166" cy="54" r="2.5" fill="#ef4444"/>
+                  <circle cx="152" cy="82" r="2.5" fill="#ef4444"/>
+                  <circle cx="166" cy="82" r="2.5" fill="#ef4444"/>
+                  <!-- Core Glass Lens -->
+                  <ellipse cx="160" cy="68" rx="8" ry="14" fill="#0284c7"/>
+                  <ellipse cx="158" cy="64" rx="3" ry="5" fill="#38bdf8"/>
+                </svg>
+              </div>
+
+              <div class="banner-headings">
+                <h1 class="poster-main-title">CHECKLIST INSTALASI</h1>
+                <div class="poster-highlight-title">
+                  <span>CCTV &amp; SISTEM</span>
+                  <div class="checklist-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M9 11l3 3L22 4"></path>
+                      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Header: Slogan & Multi-Screen Monitor/NVR Graphic -->
+            <div class="banner-right">
+              <div class="tagline-box">
+                <span class="tagline-text">Keamanan<br>Dimulai dari<br><strong>Sistem yang Tepat</strong></span>
+              </div>
+              <div class="banner-devices-graphic">
+                <!-- NVR Device & Multi-Camera Monitor Preview SVG -->
+                <svg class="devices-svg" viewBox="0 0 180 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Monitor Screen Frame -->
+                  <rect x="25" y="4" width="120" height="60" rx="4" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                  <!-- 8 CCTV Grid Channels inside Monitor -->
+                  <rect x="29" y="8" width="27" height="16" fill="#1e293b"/>
+                  <rect x="58" y="8" width="27" height="16" fill="#1e293b"/>
+                  <rect x="87" y="8" width="27" height="16" fill="#1e293b"/>
+                  <rect x="116" y="8" width="25" height="16" fill="#1e293b"/>
+                  <rect x="29" y="26" width="27" height="16" fill="#1e293b"/>
+                  <rect x="58" y="26" width="27" height="16" fill="#1e293b"/>
+                  <rect x="87" y="26" width="27" height="16" fill="#1e293b"/>
+                  <rect x="116" y="26" width="25" height="16" fill="#1e293b"/>
+                  <rect x="29" y="44" width="27" height="16" fill="#1e293b"/>
+                  <rect x="58" y="44" width="27" height="16" fill="#1e293b"/>
+                  <rect x="87" y="44" width="27" height="16" fill="#1e293b"/>
+                  <rect x="116" y="44" width="25" height="16" fill="#1e293b"/>
+                  <!-- Green rec indicator dots -->
+                  <circle cx="32" cy="11" r="1.5" fill="#22c55e"/>
+                  <circle cx="61" cy="11" r="1.5" fill="#22c55e"/>
+                  <circle cx="90" cy="11" r="1.5" fill="#22c55e"/>
+                  <circle cx="119" cy="11" r="1.5" fill="#22c55e"/>
+                  <!-- NVR Unit Below Monitor -->
+                  <rect x="10" y="66" width="150" height="14" rx="2" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+                  <circle cx="20" cy="73" r="2" fill="#38bdf8"/>
+                  <circle cx="28" cy="73" r="2" fill="#22c55e"/>
+                  <rect x="120" y="70" width="15" height="6" rx="1" fill="#0f172a"/>
+                  <!-- Wi-Fi Dongle with Antenna -->
+                  <rect x="164" y="64" width="12" height="7" rx="1.5" fill="#0284c7"/>
+                  <line x1="174" y1="64" x2="175" y2="40" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata Header Bar: Site, Teknisi, Tanggal, Total CCTV -->
+          <div class="poster-metadata-row">
+            <div class="meta-col">
+              <div class="meta-item">
+                <span class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </span>
+                <span class="meta-label">Site</span>
+                <span class="meta-colon">:</span>
+                <span class="meta-value" id="previewSite">-</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </span>
+                <span class="meta-label">Tanggal</span>
+                <span class="meta-colon">:</span>
+                <span class="meta-value" id="previewTanggal">-</span>
+              </div>
+            </div>
+
+            <div class="meta-col">
+              <div class="meta-item">
+                <span class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </span>
+                <span class="meta-label">Teknisi</span>
+                <span class="meta-colon">:</span>
+                <span class="meta-value" id="previewTeknisi">-</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                </span>
+                <span class="meta-label">Total CCTV</span>
+                <span class="meta-colon">:</span>
+                <span class="meta-value bold-blue">
+                  <span id="previewCctvDone">0</span> / <span id="previewCctvTotal">0</span> Unit
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= 4 MAIN SECTIONS GRID ================= -->
+          <div class="poster-sections-grid">
+            
+            <!-- SECTION A: PERSIAPAN & NVR (Blue) -->
+            <div class="poster-box box-a">
+              <div class="box-header header-blue">
+                <div class="box-title-wrap">
+                  <span class="box-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  </span>
+                  <h3>A. PERSIAPAN &amp; NVR</h3>
+                </div>
+              </div>
+
+              <div class="box-content-split">
+                <!-- Checklist Lines -->
+                <ul class="poster-check-list">
+                  <li id="p_item_a1"><span class="box-check"></span><span class="txt">MOS</span></li>
+                  <li id="p_item_a2"><span class="box-check"></span><span class="txt">Pemasangan label SN (Serial Number)</span></li>
+                  <li id="p_item_a3"><span class="box-check"></span><span class="txt">Dokumen list IP dari SM</span></li>
+                  <li id="p_item_a4"><span class="box-check"></span><span class="txt">Pemasangan perangkat pada rack server</span></li>
+                  <li id="p_item_a5">
+                    <span class="box-check"></span>
+                    <span class="txt">Pemasangan CCTV ( <strong id="p_item_a5_done">__</strong> / <strong id="p_item_a5_target">__</strong> unit )</span>
+                  </li>
+                  <li id="p_item_a6"><span class="box-check"></span><span class="txt">Pemasangan &amp; aktivasi HDD NVR (2 × 8TB)</span></li>
+                  <li id="p_item_a7"><span class="box-check"></span><span class="txt">Setting date &amp; time NVR sesuai NTP site</span></li>
+                  <li id="p_item_a8"><span class="box-check"></span><span class="txt">Pemasangan dongle Wi-Fi TP-Link</span></li>
+                  <li id="p_item_a9"><span class="box-check"></span><span class="txt">Koneksi NVR ke Wi-Fi setempat</span></li>
+                  <li id="p_item_a10"><span class="box-check"></span><span class="txt">Instalasi remote access (RustDesk/UltraViewer)</span></li>
+                </ul>
+
+                <!-- Illustration Art for NVR, HDD & TP-Link -->
+                <div class="box-art-column">
+                  <div class="art-badge-nvr">
+                    <div class="badge-tag">NVR</div>
+                    <svg viewBox="0 0 90 28" fill="none">
+                      <rect x="2" y="2" width="86" height="24" rx="2" fill="#1e293b" stroke="#0284c7" stroke-width="1.5"/>
+                      <circle cx="10" cy="14" r="2" fill="#38bdf8"/>
+                      <line x1="20" y1="10" x2="35" y2="10" stroke="#64748b" stroke-width="1.5"/>
+                      <line x1="20" y1="18" x2="45" y2="18" stroke="#64748b" stroke-width="1.5"/>
+                      <rect x="65" y="8" width="16" height="12" rx="1" fill="#0f172a"/>
+                    </svg>
+                  </div>
+                  <div class="art-hdd-wrap">
+                    <div class="hdd-pair">
+                      <div class="hdd-chip">HDD</div>
+                      <div class="hdd-chip">HDD</div>
+                    </div>
+                    <span class="hdd-label">2 × 8TB</span>
+                  </div>
+                  <div class="art-tplink-wrap">
+                    <div class="tplink-logo">
+                      <span class="tp-icon">P</span>
+                      <span class="tp-text">tp-link</span>
+                    </div>
+                    <div class="dongle-pic">
+                      <svg viewBox="0 0 45 45" fill="none">
+                        <path d="M12 28 L24 28 L24 40 L12 40 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+                        <line x1="18" y1="28" x2="32" y2="6" stroke="#0284c7" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M28 20 C32 18 36 20 38 24" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M32 14 C38 12 44 16 46 22" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION B: KONFIGURASI CCTV (Green) -->
+            <div class="poster-box box-b">
+              <div class="box-header header-green">
+                <div class="box-title-wrap">
+                  <span class="box-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                  </span>
+                  <h3>B. KONFIGURASI CCTV</h3>
+                </div>
+              </div>
+
+              <div class="box-content-split">
+                <!-- Checklist Lines -->
+                <ul class="poster-check-list">
+                  <li id="p_item_b1"><span class="box-check"></span><span class="txt">Setting watermark</span></li>
+                  <li id="p_item_b2"><span class="box-check"></span><span class="txt">Penamaan CCTV</span></li>
+                  <li id="p_item_b3"><span class="box-check"></span><span class="txt">Setting date &amp; time CCTV</span></li>
+                  <li id="p_item_b4"><span class="box-check"></span><span class="txt">Sinkronisasi waktu dengan PC/NTP</span></li>
+                  <li id="p_item_b5"><span class="box-check"></span><span class="txt">Setting IP CCTV sesuai penempatan</span></li>
+                  <li id="p_item_b6"><span class="box-check"></span><span class="txt">Adding camera</span></li>
+                  <li id="p_item_b7"><span class="box-check"></span><span class="txt">Adjustment CCTV</span></li>
+                  <li id="p_item_b8"><span class="box-check"></span><span class="txt">Troubleshooting (jika ada)</span></li>
+                </ul>
+
+                <!-- Illustration Art for Dome Camera & Gear Seal -->
+                <div class="box-art-column">
+                  <div class="art-dome-wrap">
+                    <!-- High-tech Dome Security Camera Vector -->
+                    <svg viewBox="0 0 100 95" fill="none">
+                      <!-- Base Mount Flange -->
+                      <ellipse cx="50" cy="22" rx="42" ry="12" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+                      <ellipse cx="50" cy="28" rx="38" ry="10" fill="#f8fafc"/>
+                      <!-- Camera Body Turret -->
+                      <path d="M18 28 C18 62 82 62 82 28 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+                      <!-- Black Glass Inner Dome Ball -->
+                      <ellipse cx="50" cy="46" rx="28" ry="24" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+                      <!-- Lens Bezel -->
+                      <ellipse cx="50" cy="48" rx="14" ry="12" fill="#1e293b"/>
+                      <circle cx="50" cy="48" r="7" fill="#0284c7"/>
+                      <circle cx="48" cy="46" r="2.5" fill="#38bdf8"/>
+                    </svg>
+                  </div>
+                  <div class="art-gear-badge">
+                    <svg viewBox="0 0 45 45" fill="none">
+                      <circle cx="22.5" cy="22.5" r="20" fill="#16a34a"/>
+                      <circle cx="22.5" cy="22.5" r="16" fill="#15803d"/>
+                      <path d="M14 22.5 L20 28.5 L31 16.5" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION C: PC CLIENT (Orange) -->
+            <div class="poster-box box-c">
+              <div class="box-header header-orange">
+                <div class="box-title-wrap">
+                  <span class="box-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                  </span>
+                  <h3>C. PC CLIENT</h3>
+                </div>
+              </div>
+
+              <div class="box-content-split">
+                <!-- Checklist Lines -->
+                <ul class="poster-check-list">
+                  <li id="p_item_c1"><span class="box-check"></span><span class="txt">Instalasi &amp; konfigurasi PC client</span></li>
+                  <li id="p_item_c2"><span class="box-check"></span><span class="txt">Setting date &amp; time sesuai NTP site</span></li>
+                  <li id="p_item_c3"><span class="box-check"></span><span class="txt">Setting IP PC client</span></li>
+                  <li id="p_item_c4"><span class="box-check"></span><span class="txt">Koneksi PC ke Wi-Fi setempat</span></li>
+                  <li id="p_item_c5"><span class="box-check"></span><span class="txt">Instalasi remote access (RustDesk/UltraViewer)</span></li>
+                  <li id="p_item_c6"><span class="box-check"></span><span class="txt">Instalasi software CWERK dari folder C:\NVR</span></li>
+                  <li id="p_item_c7"><span class="box-check"></span><span class="txt">Menampilkan CCTV pada monitor 50"</span></li>
+                  <li id="p_item_c8"><span class="box-check"></span><span class="txt">Memastikan seluruh CCTV tampil normal</span></li>
+                </ul>
+
+                <!-- Illustration Art for Workstation & 50" Display -->
+                <div class="box-art-column">
+                  <div class="art-pc-workstation">
+                    <!-- Desktop PC & Surveillance View Screen -->
+                    <svg viewBox="0 0 110 75" fill="none">
+                      <!-- Monitor Display -->
+                      <rect x="4" y="6" width="68" height="42" rx="3" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+                      <rect x="7" y="9" width="62" height="36" fill="#1e293b"/>
+                      <!-- Multi-cam split tiles -->
+                      <rect x="9" y="11" width="18" height="15" fill="#334155"/>
+                      <rect x="29" y="11" width="18" height="15" fill="#334155"/>
+                      <rect x="49" y="11" width="18" height="15" fill="#334155"/>
+                      <rect x="9" y="28" width="18" height="15" fill="#334155"/>
+                      <rect x="29" y="28" width="18" height="15" fill="#334155"/>
+                      <rect x="49" y="28" width="18" height="15" fill="#334155"/>
+                      <!-- Monitor Stand -->
+                      <path d="M34 48 L42 48 L44 58 L32 58 Z" fill="#64748b"/>
+                      <ellipse cx="38" cy="58" rx="14" ry="3" fill="#475569"/>
+                      <!-- PC Tower -->
+                      <rect x="78" y="4" width="28" height="56" rx="2" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+                      <line x1="84" y1="12" x2="98" y2="12" stroke="#0ea5e9" stroke-width="2"/>
+                      <circle cx="92" cy="22" r="3" fill="#0ea5e9"/>
+                      <!-- Keyboard & Mouse -->
+                      <rect x="10" y="64" width="55" height="7" rx="1.5" fill="#334155"/>
+                      <ellipse cx="74" cy="67" rx="4" ry="5" fill="#475569"/>
+                    </svg>
+                  </div>
+                  <div class="art-cwerk-row">
+                    <div class="cwerk-pill">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                      <span>CWERK</span>
+                    </div>
+                    <div class="monitor-size-badge">50"</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION D: FINAL CHECK & PENUTUP (Purple) -->
+            <div class="poster-box box-d">
+              <div class="box-header header-purple">
+                <div class="box-title-wrap">
+                  <span class="box-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </span>
+                  <h3>D. FINAL CHECK &amp; PENUTUP</h3>
+                </div>
+              </div>
+
+              <div class="box-content-split">
+                <!-- Checklist Lines -->
+                <ul class="poster-check-list">
+                  <li id="p_item_d1"><span class="box-check"></span><span class="txt">Seluruh CCTV online</span></li>
+                  <li id="p_item_d2"><span class="box-check"></span><span class="txt">Live view normal</span></li>
+                  <li id="p_item_d3"><span class="box-check"></span><span class="txt">Recording &amp; playback normal</span></li>
+                  <li id="p_item_d4"><span class="box-check"></span><span class="txt">HDD terdeteksi</span></li>
+                  <li id="p_item_d5"><span class="box-check"></span><span class="txt">Date &amp; time sinkron</span></li>
+                  <li id="p_item_d6"><span class="box-check"></span><span class="txt">PC client &amp; monitor normal</span></li>
+                  <li id="p_item_d7"><span class="box-check"></span><span class="txt">Remote access berfungsi</span></li>
+                  <li id="p_item_d8"><span class="box-check"></span><span class="txt">Dokumentasi seluruh sistem</span></li>
+                  <li id="p_item_d9"><span class="box-check"></span><span class="txt">Serah terima ke PIC site</span></li>
+                </ul>
+
+                <!-- Illustration Art for Multi-Screen & Verified Seal -->
+                <div class="box-art-column">
+                  <div class="art-wall-monitor">
+                    <svg viewBox="0 0 115 75" fill="none">
+                      <!-- 16-Cam Big Video Wall Screen -->
+                      <rect x="4" y="4" width="107" height="56" rx="3" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+                      <!-- 4x4 Grid of CCTV feeds -->
+                      <g fill="#1e293b" stroke="#0f172a" stroke-width="1">
+                        <rect x="7" y="7" width="24" height="11"/>
+                        <rect x="33" y="7" width="24" height="11"/>
+                        <rect x="59" y="7" width="24" height="11"/>
+                        <rect x="85" y="7" width="23" height="11"/>
+                        
+                        <rect x="7" y="20" width="24" height="11"/>
+                        <rect x="33" y="20" width="24" height="11"/>
+                        <rect x="59" y="20" width="24" height="11"/>
+                        <rect x="85" y="20" width="23" height="11"/>
+                        
+                        <rect x="7" y="33" width="24" height="11"/>
+                        <rect x="33" y="33" width="24" height="11"/>
+                        <rect x="59" y="33" width="24" height="11"/>
+                        <rect x="85" y="33" width="23" height="11"/>
+
+                        <rect x="7" y="46" width="24" height="11"/>
+                        <rect x="33" y="46" width="24" height="11"/>
+                        <rect x="59" y="46" width="24" height="11"/>
+                        <rect x="85" y="46" width="23" height="11"/>
+                      </g>
+                      <!-- Base Stand -->
+                      <path d="M48 60 L67 60 L72 68 L43 68 Z" fill="#475569"/>
+                    </svg>
+                  </div>
+
+                  <!-- Verified Normal Green Badge -->
+                  <div class="art-all-normal-seal" id="posterVerifiedSeal">
+                    <div class="seal-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <div class="seal-text">
+                      <span>SEMUA SISTEM</span>
+                      <strong>BERFUNGSI NORMAL</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ================= BOTTOM SECTION: CATATAN, STATUS & KONFIRMASI ================= -->
+          <div class="poster-bottom-row">
+            
+            <!-- Col 1: Catatan / Kendala -->
+            <div class="bottom-box box-notes">
+              <div class="bottom-box-title title-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                <span>CATATAN / KENDALA</span>
+              </div>
+              <div class="notes-content-ruled">
+                <div class="notes-text-area" id="p_catatan_text"></div>
+              </div>
+            </div>
+
+            <!-- Col 2: Status Pekerjaan -->
+            <div class="bottom-box box-status">
+              <div class="bottom-box-title title-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="13" x2="15" y2="13"></line><line x1="9" y1="17" x2="13" y2="17"></line></svg>
+                <span>STATUS PEKERJAAN</span>
+              </div>
+              <div class="status-checklist">
+                <div class="status-row" id="p_status_selesai">
+                  <span class="box-check"></span>
+                  <span>Selesai</span>
+                </div>
+                <div class="status-row" id="p_status_catatan">
+                  <span class="box-check"></span>
+                  <span>Selesai dengan catatan</span>
+                </div>
+                <div class="status-row" id="p_status_belum">
+                  <span class="box-check"></span>
+                  <span>Belum selesai</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 3: Teknisi (Nama, Tanda Tangan Fisik, Tanggal) -->
+            <div class="bottom-box box-sig">
+              <div class="bottom-box-title title-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>TEKNISI</span>
+              </div>
+              <div class="sig-card-content">
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Nama</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val" id="p_sig_teknisi_name">-</span>
+                </div>
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Tanda tangan</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val sf-line-sign">...................................................</span>
+                </div>
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Tanggal</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val" id="p_sig_teknisi_date">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 4: PIC Site (Nama, Tanda Tangan Fisik, Tanggal) -->
+            <div class="bottom-box box-sig">
+              <div class="bottom-box-title title-teal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                <span>PIC SITE</span>
+              </div>
+              <div class="sig-card-content">
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Nama</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val" id="p_sig_pic_name">-</span>
+                </div>
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Tanda tangan</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val sf-line-sign">...................................................</span>
+                </div>
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Tanggal</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val" id="p_sig_pic_date">-</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Poster Footer Bar (Navy with Slogan & Yellow/Blue Accent Triangles) -->
+          <footer class="poster-footer-banner">
+            <div class="footer-slogan">
+              <span>PROFESIONAL</span>
+              <span class="dot">•</span>
+              <span>AKURAT</span>
+              <span class="dot">•</span>
+              <span>TERPERCAYA</span>
+            </div>
+            <!-- Geometric Triangle Accents from original graphic -->
+            <div class="footer-accents">
+              <div class="accent-triangle-blue"></div>
+              <div class="accent-triangle-yellow"></div>
+            </div>
+          </footer>
+
+        </div>
+        <!-- ================= END POSTER ELEMENT ================= -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= MODALS ================= -->
+  
+  <!-- ================= KONFIGURASI BACKEND ================= -->
+  <!-- URL Backend Google Apps Script (Ubah langsung di script ini jika ganti database) -->
+  <script>
+    window.GAS_BACKEND_URL = "https://script.google.com/macros/s/AKfycbyaC89OWgsrXc-BsxUepgE8V2fVCU-H8yvVJxgfnJhQF0SbjzOF9rpOLYJEI0LUK8oY/exec";
+  </script>
+
+  <!-- Loading Overlay / Processing Modal -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <h4 id="loadingTitle">Memproses Dokumen...</h4>
+      <p id="loadingDesc">Sedang merender hasil gambar resolusi tinggi.</p>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
