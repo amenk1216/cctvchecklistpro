@@ -757,4 +757,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   loadSavedDraft();
   calculateProgress();
+
+  // Otomatis buka Split Mode pada layar desktop/laptop agar poster langsung tampil
+  if (window.innerWidth >= 1100) {
+    setViewMode('split');
+  } else {
+    setViewMode('form');
+  }
 });
+
