@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     DRAFT_DATA: 'cctv_checklist_draft_v2'
   };
 
+  // Default Backend URL Google Apps Script yang sudah aktif
+  const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbyaC89OWgsrXc-BsxUepgE8V2fVCU-H8yvVJxgfnJhQF0SbjzOF9rpOLYJEI0LUK8oY/exec';
+
   const TOTAL_CHECKLIST_COUNT = 35; // 10 (A) + 8 (B) + 8 (C) + 9 (D)
 
   // DOM Elements: Header Controls
@@ -471,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 6. GOOGLE APPS SCRIPT (GAS) INTEGRATION
   // --------------------------------------------------------------------------
   btnGasSettings.addEventListener('click', () => {
-    const savedUrl = localStorage.getItem(STORAGE_KEYS.GAS_URL) || '';
+    const savedUrl = localStorage.getItem(STORAGE_KEYS.GAS_URL) || DEFAULT_GAS_URL;
     gasUrlInput.value = savedUrl;
     gasStatusBox.style.display = 'none';
     gasModal.classList.add('open');
@@ -488,13 +491,13 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('URL Google Apps Script berhasil disimpan!', 'success');
     } else {
       localStorage.removeItem(STORAGE_KEYS.GAS_URL);
-      showToast('URL GAS dikosongkan.', 'info');
+      showToast('URL GAS dikembalikan ke default.', 'info');
     }
     gasModal.classList.remove('open');
   });
 
   btnTestGas.addEventListener('click', async () => {
-    const url = gasUrlInput.value.trim();
+    const url = gasUrlInput.value.trim() || DEFAULT_GAS_URL;
     if (!url) {
       alert('Silakan masukkan URL Web App Google Apps Script terlebih dahulu.');
       return;
@@ -524,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Submit to Google Spreadsheet via GAS Web App
   async function submitToGoogleSheets() {
-    let gasUrl = localStorage.getItem(STORAGE_KEYS.GAS_URL) || '';
+    let gasUrl = localStorage.getItem(STORAGE_KEYS.GAS_URL) || DEFAULT_GAS_URL;
     if (!gasUrl) {
       const ask = confirm('URL Google Apps Script belum dikonfigurasi. Apakah Anda ingin mengaturnya sekarang?');
       if (ask) {
