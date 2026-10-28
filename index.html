@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Instalasi CCTV & Sistem Pro | Export Gambar, PDF & Google Sheets</title>
+  <meta name="description" content="Aplikasi checklist instalasi CCTV & Sistem profesional dengan ekspor resolusi tinggi (PNG/PDF) dan integrasi Google Sheets (GAS).">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- External Libraries: html2canvas & jsPDF -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <!-- Top Navigation & Control Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+            <circle cx="12" cy="13" r="3"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>CCTV CHECKLIST <span>PRO</span></h1>
+          <p>Sistem Formulir Digital &amp; Ekspor Poster Cetak</p>
+        </div>
+      </div>
+
+      <!-- Quick Progress Bar in Header -->
+      <div class="header-progress-wrap">
+        <div class="progress-info">
+          <span class="progress-label">Kelengkapan Checklist:</span>
+          <span id="headerProgressPercent" class="progress-percent">0%</span>
+          <span id="headerProgressCount" class="progress-count">(0/35 Item)</span>
+        </div>
+        <div class="progress-track">
+          <div id="headerProgressBar" class="progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- View Switcher -->
+      <div class="view-switcher" role="tablist">
+        <button id="tabFormBtn" class="switch-btn active" role="tab" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+          Form Input
+        </button>
+        <button id="tabSplitBtn" class="switch-btn desktop-only" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="12" y1="3" x2="12" y2="21"></line>
+          </svg>
+          Split Mode
+        </button>
+        <button id="tabPreviewBtn" class="switch-btn" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          Poster Hasil
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button id="btnQuickDemo" class="action-btn btn-ghost" title="Isi data percontohan otomatis">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          Isi Contoh
+        </button>
+
+        <button id="btnGasSettings" class="action-btn btn-outline" title="Pengaturan URL Google Apps Script">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          GAS
+        </button>
+
+        <button id="btnExportImage" class="action-btn btn-primary" title="Export sebagai gambar PNG kualitas tinggi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export Gambar
+        </button>
+
+        <button id="btnExportPdf" class="action-btn btn-secondary" title="Export sebagai PDF A4 Landscape">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          PDF
+        </button>
+
+        <button id="btnSubmitGas" class="action-btn btn-success" title="Kirim &amp; simpan data ke Google Spreadsheet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+          Simpan ke Sheet
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="main-layout layout-form" id="mainContainer">
+    <!-- ============================================================= -->
+    <!-- LEFT PANE: FORMULIR INPUT INTERAKTIF -->
+    <!-- ============================================================= -->
+    <section class="form-pane" id="formPane">
+      <div class="form-scrollable">
+        
+        <!-- Info Banner / Fast Controls -->
+        <div class="card card-toolbar">
+          <div class="toolbar-stats">
+            <span class="badge badge-site" id="badgeSitePreview">Site: -</span>
+            <span class="badge badge-date" id="badgeDatePreview">Tanggal: -</span>
+            <span class="badge badge-cctv" id="badgeCctvPreview">CCTV: 0/0 Unit</span>
+          </div>
+          <div class="toolbar-actions">
+            <button type="button" class="btn-sm btn-outline" id="btnCheckAllGlobal">✓ Centang Semua</button>
+            <button type="button" class="btn-sm btn-outline" id="btnUncheckAllGlobal">✕ Hapus Semua</button>
+            <button type="button" class="btn-sm btn-danger-outline" id="btnResetForm">Reset</button>
+          </div>
+        </div>
+
+        <!-- Section 1: Informasi Proyek / Site -->
+        <div class="card card-section">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="step-num">01</span>
+              <h2>Informasi Proyek &amp; Teknisi</h2>
+            </div>
+            <span class="badge-hint">Data Utama</span>
+          </div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="inputSite">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  Nama Site / Lokasi <span class="req">*</span>
+                </label>
+                <input type="text" id="inputSite" placeholder="Contoh: Site Warehouse Cikarang Blok B" required>
+              </div>
+
+              <div class="form-group">
+                <label for="inputTanggal">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  Tanggal Instalasi <span class="req">*</span>
+                </label>
+                <input type="text" id="inputTanggal" placeholder="DD/MM/YYYY (Contoh: 28/10/2026)">
+              </div>
+
+              <div class="form-group">
+                <label for="inputTeknisi">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  Nama Teknisi <span class="req">*</span>
+                </label>
+                <input type="text" id="inputTeknisi" placeholder="Nama lengkap teknisi">
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                  Total CCTV (Terpasang / Target Unit)
+                </label>
+                <div class="input-unit-duo">
+                  <input type="number" id="inputCctvDone" placeholder="16" min="0">
+                  <span class="unit-divider">/</span>
+                  <input type="number" id="inputCctvTotal" placeholder="16" min="1">
+                  <span class="unit-tag">Unit</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section A: PERSIAPAN & NVR (Theme Blue) -->
+        <div class="card card-section section-theme-blue">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="section-badge badge-blue">A</span>
+              <div>
+                <h2>PERSIAPAN &amp; NVR</h2>
+                <p class="section-subtitle">Pemeriksaan fisik, perakitan rak server, storage, dan jaringan NVR</p>
+              </div>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-micro" data-action="check-all" data-target="groupA">Centang Semua</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="checklist-items" id="groupA">
+              <!-- Item A1 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a1" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">MOS (Material On Site)</span>
+              </label>
+
+              <!-- Item A2 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a2" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Pemasangan label SN (Serial Number)</span>
+              </label>
+
+              <!-- Item A3 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a3" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Dokumen list IP dari SM</span>
+              </label>
+
+              <!-- Item A4 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a4" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Pemasangan perangkat pada rack server</span>
+              </label>
+
+              <!-- Item A5 (Special: with units) -->
+              <div class="check-item-special">
+                <label class="check-item check-item-inner">
+                  <input type="checkbox" id="item_a5" data-section="A">
+                  <span class="custom-checkbox"></span>
+                  <span class="item-text">Pemasangan CCTV</span>
+                </label>
+                <div class="item-sub-inputs">
+                  <input type="text" id="item_a5_done" class="mini-input" placeholder="16" title="Jumlah terpasang">
+                  <span>/</span>
+                  <input type="text" id="item_a5_target" class="mini-input" placeholder="16" title="Total target">
+                  <span>unit</span>
+                </div>
+              </div>
+
+              <!-- Item A6 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a6" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Pemasangan &amp; aktivasi HDD NVR (2 × 8TB)</span>
+              </label>
+
+              <!-- Item A7 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a7" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting date &amp; time NVR sesuai NTP site</span>
+              </label>
+
+              <!-- Item A8 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a8" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Pemasangan dongle Wi-Fi TP-Link</span>
+              </label>
+
+              <!-- Item A9 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a9" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Koneksi NVR ke Wi-Fi setempat</span>
+              </label>
+
+              <!-- Item A10 -->
+              <label class="check-item">
+                <input type="checkbox" id="item_a10" data-section="A">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Instalasi remote access (RustDesk/UltraViewer)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section B: KONFIGURASI CCTV (Theme Green) -->
+        <div class="card card-section section-theme-green">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="section-badge badge-green">B</span>
+              <div>
+                <h2>KONFIGURASI CCTV</h2>
+                <p class="section-subtitle">Konfigurasi parameter kamera, watermark, IP address, dan sinkronisasi</p>
+              </div>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-micro" data-action="check-all" data-target="groupB">Centang Semua</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="checklist-items" id="groupB">
+              <label class="check-item">
+                <input type="checkbox" id="item_b1" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting watermark</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b2" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Penamaan CCTV</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b3" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting date &amp; time CCTV</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b4" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Sinkronisasi waktu dengan PC/NTP</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b5" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting IP CCTV sesuai penempatan</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b6" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Adding camera</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b7" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Adjustment CCTV</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_b8" data-section="B">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Troubleshooting (jika ada)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section C: PC CLIENT (Theme Orange) -->
+        <div class="card card-section section-theme-orange">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="section-badge badge-orange">C</span>
+              <div>
+                <h2>PC CLIENT</h2>
+                <p class="section-subtitle">Instalasi workstation client, aplikasi CWERK, dan monitor 50"</p>
+              </div>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-micro" data-action="check-all" data-target="groupC">Centang Semua</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="checklist-items" id="groupC">
+              <label class="check-item">
+                <input type="checkbox" id="item_c1" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Instalasi &amp; konfigurasi PC client</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c2" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting date &amp; time sesuai NTP site</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c3" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Setting IP PC client</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c4" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Koneksi PC ke Wi-Fi setempat</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c5" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Instalasi remote access (RustDesk/UltraViewer)</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c6" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Instalasi software CWERK dari folder C:\NVR</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c7" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Menampilkan CCTV pada monitor 50"</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_c8" data-section="C">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Memastikan seluruh CCTV tampil normal</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section D: FINAL CHECK & PENUTUP (Theme Purple) -->
+        <div class="card card-section section-theme-purple">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="section-badge badge-purple">D</span>
+              <div>
+                <h2>FINAL CHECK &amp; PENUTUP</h2>
+                <p class="section-subtitle">Pengujian end-to-end live view, playback, rekaman, dan serah terima</p>
+              </div>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-micro" data-action="check-all" data-target="groupD">Centang Semua</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="checklist-items" id="groupD">
+              <label class="check-item">
+                <input type="checkbox" id="item_d1" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Seluruh CCTV online</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d2" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Live view normal</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d3" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Recording &amp; playback normal</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d4" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">HDD terdeteksi</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d5" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Date &amp; time sinkron</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d6" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">PC client &amp; monitor normal</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d7" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Remote access berfungsi</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d8" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Dokumentasi seluruh sistem</span>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" id="item_d9" data-section="D">
+                <span class="custom-checkbox"></span>
+                <span class="item-text">Serah terima ke PIC site</span>
+              </label>
+            </div>
+
+            <!-- Normal Status Verified Banner -->
+            <div class="verified-indicator" id="allSystemsOkBanner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>SEMUA SISTEM BERFUNGSI NORMAL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Catatan, Status & Konfirmasi PIC -->
+        <div class="card card-section">
+          <div class="card-header">
+            <div class="header-title-wrap">
+              <span class="step-num">02</span>
+              <h2>Catatan, Status Pekerjaan &amp; PIC Site</h2>
+            </div>
+            <span class="badge-hint">Validasi Akhir</span>
+          </div>
+          <div class="card-body">
+            <!-- Catatan Kendala -->
+            <div class="form-group">
+              <label for="inputCatatan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                Catatan / Kendala yang Ditemukan
+              </label>
+              <textarea id="inputCatatan" rows="3" placeholder="Tuliskan catatan teknis, kendala saat instalasi, atau nomor kontak jika ada..."></textarea>
+            </div>
+
+            <!-- Status Pekerjaan Radio Selection -->
+            <div class="form-group">
+              <label>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                Status Pekerjaan <span class="req">*</span>
+              </label>
+              <div class="status-radio-grid">
+                <label class="status-option option-success">
+                  <input type="radio" name="statusPekerjaan" value="Selesai" checked>
+                  <span class="option-card">
+                    <span class="radio-circle"></span>
+                    <span class="option-title">Selesai</span>
+                    <span class="option-desc">Semua instalasi &amp; pengetesan tuntas 100%</span>
+                  </span>
+                </label>
+
+                <label class="status-option option-warning">
+                  <input type="radio" name="statusPekerjaan" value="Selesai dengan catatan">
+                  <span class="option-card">
+                    <span class="radio-circle"></span>
+                    <span class="option-title">Selesai dengan Catatan</span>
+                    <span class="option-desc">Ada follow-up kecil atau penyesuaian lapangan</span>
+                  </span>
+                </label>
+
+                <label class="status-option option-danger">
+                  <input type="radio" name="statusPekerjaan" value="Belum selesai">
+                  <span class="option-card">
+                    <span class="radio-circle"></span>
+                    <span class="option-title">Belum Selesai</span>
+                    <span class="option-desc">Pekerjaan ditunda atau belum selesai</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Data Konfirmasi Teknisi & PIC Site -->
+            <div class="grid-2" style="margin-top: 1rem;">
+              <div class="form-group">
+                <label for="sigTeknisiName">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  Nama Konfirmasi Teknisi
+                </label>
+                <input type="text" id="sigTeknisiName" placeholder="Nama lengkap teknisi">
+              </div>
+
+              <div class="form-group">
+                <label for="sigPicName">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                  Nama PIC Site / Penerima <span class="req">*</span>
+                </label>
+                <input type="text" id="sigPicName" placeholder="Contoh: Bpk. Hendra (Store Manager)">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- RIGHT PANE: LIVE POSTER HASIL (Persis & Diperbagus dari Gambar) -->
+    <!-- ============================================================= -->
+    <section class="preview-pane" id="previewPane">
+      <div class="preview-floating-toolbar">
+        <span class="preview-hint">👁️ Live Preview Poster Hasil (1:1 High-Res)</span>
+        <div class="preview-actions">
+          <button type="button" class="btn-preview-action" id="btnPreviewRefresh" title="Segarkan Tampilan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            Refresh
+          </button>
+          <button type="button" class="btn-preview-action btn-preview-action-primary" id="btnPreviewDownload">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download PNG
+          </button>
+        </div>
+      </div>
+
+      <div class="poster-scroll-wrapper">
+        <!-- ================= POSTER ELEMENT TO CAPTURE ================= -->
+        <div class="cctv-poster" id="cctvPosterDocument">
+          
+          <!-- Poster Top Header (Vibrant Blue Dark Theme with Camera & Systems Illustration) -->
+          <div class="poster-top-banner">
+            <!-- Left Header: Camera 3D Graphic + Big Title -->
+            <div class="banner-left">
+              <div class="camera-graphic-wrap">
+                <!-- CCTV Bullet Camera Vector Art with Solid Clean Colors (Zero Gradient NaN Error) -->
+                <svg class="cctv-camera-svg" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Wall Mount Base -->
+                  <path d="M12 25 L32 35 L32 95 L12 105 Z" fill="#64748b" stroke="#334155" stroke-width="3"/>
+                  <ellipse cx="22" cy="65" rx="14" ry="38" fill="#475569"/>
+                  <!-- Mount Arm -->
+                  <path d="M28 58 L62 54 L64 74 L28 72 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+                  <!-- Ball Joint -->
+                  <circle cx="68" cy="64" r="14" fill="#94a3b8"/>
+                  <!-- Sunshield Hood -->
+                  <path d="M60 40 L168 28 C176 27 182 34 180 42 L164 88 L60 84 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+                  <!-- Camera Barrel Cylinder -->
+                  <path d="M66 50 L156 42 C162 41 166 46 164 52 L154 90 C152 94 148 97 142 97 L66 94 Z" fill="#f8fafc"/>
+                  <!-- Front Black Lens Bezel -->
+                  <ellipse cx="160" cy="68" rx="18" ry="32" fill="#0f172a" stroke="#334155" stroke-width="3"/>
+                  <!-- Infrared Ring -->
+                  <ellipse cx="160" cy="68" rx="13" ry="24" fill="#1e293b"/>
+                  <circle cx="152" cy="54" r="2.5" fill="#ef4444"/>
+                  <circle cx="166" cy="54" r="2.5" fill="#ef4444"/>
+                  <circle cx="152" cy="82" r="2.5" fill="#ef4444"/>
+                  <circle cx="166" cy="82" r="2.5" fill="#ef4444"/>
+                  <!-- Core Glass Lens -->
+                  <ellipse cx="160" cy="68" rx="8" ry="14" fill="#0284c7"/>
+                  <ellipse cx="158" cy="64" rx="3" ry="5" fill="#38bdf8"/>
+                </svg>
+              </div>
+
+              <div class="banner-headings">
+                <h1 class="poster-main-title">CHECKLIST INSTALASI</h1>
+                <div class="poster-highlight-title">
+                  <span>CCTV &amp; SISTEM</span>
+                  <div class="checklist-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M9 11l3 3L22 4"></path>
+                      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Header: Slogan & Multi-Screen Monitor/NVR Graphic -->
+            <div class="banner-right">
+              <div class="tagline-box">
+                <span class="tagline-text">Keamanan<br>Dimulai dari<br><strong>Sistem yang Tepat</strong></span>
+              </div>
+              <div class="banner-devices-graphic">
+                <!-- NVR Device & Multi-Camera Monitor Preview SVG -->
+                <svg class="devices-svg" viewBox="0 0 180 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Monitor Screen Frame -->
+                  <rect x="25" y="4" width="120" height="60" rx="4" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                  <!-- 8 CCTV Grid Channels inside Monitor -->
+                  <rect x="29" y="8" width="27" height="16" fill="#1e293b"/>
+                  <rect x="58" y="8" width="27" height="16" fill="#1e293b"/>
+                  <rect x="87" y="8" width="27" height="16" fill="#1e293b"/>
+                  <rect x="116" y="8" width="25" height="16" fill="#1e293b"/>
+                  <rect x="29" y="26" width="27" height="16" fill="#1e293b"/>
+                  <rect x="58" y="26" width="27" height="16" fill="#1e293b"/>
+                  <rect x="87" y="26" width="27" height="16" fill="#1e293b"/>
+                  <rect x="116" y="26" width="25" height="16" fill="#1e293b"/>
+                  <rect x="29" y="44" width="27" height="16" fill="#1e293b"/>
+                  <rect x="58" y="44" width="27" height="16" fill="#1e293b"/>
+                  <rect x="87" y="44" width="27" height="16" fill="#1e293b"/>
+                  <rect x="116" y="44" width="25" height="16" fill="#1e293b"/>
+                  <!-- Green rec indicator dots -->
+                  <circle cx="32" cy="11" r="1.5" fill="#22c55e"/>
+                  <circle cx="61" cy="11" r="1.5" fill="#22c55e"/>
+                  <circle cx="90" cy="11" r="1.5" fill="#22c55e"/>
+                  <circle cx="119" cy="11" r="1.5" fill="#22c55e"/>
+                  <!-- NVR Unit Below Monitor -->
+                  <rect x="10" y="66" width="150" height="14" rx="2" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+                  <circle cx="20" cy="73" r="2" fill="#38bdf8"/>
+                  <circle cx="28" cy="73" r="2" fill="#22c55e"/>
+                  <rect x="120" y="70" width="15" height="6" rx="1" fill="#0f172a"/>
+                  <!-- Wi-Fi Dongle with Antenna -->
+                  <rect x="164" y="64" width="12" height="7" rx="1.5" fill="#0284c7"/>
+                  <line x1="174" y1="64" x2="175" y2="40" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata Header Bar: Site, Teknisi, Tanggal, Total CCTV -->
+          <div class="poster-metadata-row">
+            <div class="meta-col">
+              <div class="meta-item">
+                <span class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </span>
+                <span class="meta-label">Site</span>
+                <span class="meta-colon">:</span>
+                <span class="meta-value" id="previewSite">-</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </span>
+                <span class="meta-label">Tanggal</span>
+                <span class="meta-colon">:</span>
+                <span class="meta-value" id="previewTanggal">-</span>
+              </div>
+            </div>
+
+            <div class="meta-col">
+              <div class="meta-item">
+                <span class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </span>
+                <span class="meta-label">Teknisi</span>
+                <span class="meta-colon">:</span>
+                <span class="meta-value" id="previewTeknisi">-</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                </span>
+                <span class="meta-label">Total CCTV</span>
+                <span class="meta-colon">:</span>
+                <span class="meta-value bold-blue">
+                  <span id="previewCctvDone">0</span> / <span id="previewCctvTotal">0</span> Unit
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= 4 MAIN SECTIONS GRID ================= -->
+          <div class="poster-sections-grid">
+            
+            <!-- SECTION A: PERSIAPAN & NVR (Blue) -->
+            <div class="poster-box box-a">
+              <div class="box-header header-blue">
+                <div class="box-title-wrap">
+                  <span class="box-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  </span>
+                  <h3>A. PERSIAPAN &amp; NVR</h3>
+                </div>
+              </div>
+
+              <div class="box-content-split">
+                <!-- Checklist Lines -->
+                <ul class="poster-check-list">
+                  <li id="p_item_a1"><span class="box-check"></span><span class="txt">MOS</span></li>
+                  <li id="p_item_a2"><span class="box-check"></span><span class="txt">Pemasangan label SN (Serial Number)</span></li>
+                  <li id="p_item_a3"><span class="box-check"></span><span class="txt">Dokumen list IP dari SM</span></li>
+                  <li id="p_item_a4"><span class="box-check"></span><span class="txt">Pemasangan perangkat pada rack server</span></li>
+                  <li id="p_item_a5">
+                    <span class="box-check"></span>
+                    <span class="txt">Pemasangan CCTV ( <strong id="p_item_a5_done">__</strong> / <strong id="p_item_a5_target">__</strong> unit )</span>
+                  </li>
+                  <li id="p_item_a6"><span class="box-check"></span><span class="txt">Pemasangan &amp; aktivasi HDD NVR (2 × 8TB)</span></li>
+                  <li id="p_item_a7"><span class="box-check"></span><span class="txt">Setting date &amp; time NVR sesuai NTP site</span></li>
+                  <li id="p_item_a8"><span class="box-check"></span><span class="txt">Pemasangan dongle Wi-Fi TP-Link</span></li>
+                  <li id="p_item_a9"><span class="box-check"></span><span class="txt">Koneksi NVR ke Wi-Fi setempat</span></li>
+                  <li id="p_item_a10"><span class="box-check"></span><span class="txt">Instalasi remote access (RustDesk/UltraViewer)</span></li>
+                </ul>
+
+                <!-- Illustration Art for NVR, HDD & TP-Link -->
+                <div class="box-art-column">
+                  <div class="art-badge-nvr">
+                    <div class="badge-tag">NVR</div>
+                    <svg viewBox="0 0 90 28" fill="none">
+                      <rect x="2" y="2" width="86" height="24" rx="2" fill="#1e293b" stroke="#0284c7" stroke-width="1.5"/>
+                      <circle cx="10" cy="14" r="2" fill="#38bdf8"/>
+                      <line x1="20" y1="10" x2="35" y2="10" stroke="#64748b" stroke-width="1.5"/>
+                      <line x1="20" y1="18" x2="45" y2="18" stroke="#64748b" stroke-width="1.5"/>
+                      <rect x="65" y="8" width="16" height="12" rx="1" fill="#0f172a"/>
+                    </svg>
+                  </div>
+                  <div class="art-hdd-wrap">
+                    <div class="hdd-pair">
+                      <div class="hdd-chip">HDD</div>
+                      <div class="hdd-chip">HDD</div>
+                    </div>
+                    <span class="hdd-label">2 × 8TB</span>
+                  </div>
+                  <div class="art-tplink-wrap">
+                    <div class="tplink-logo">
+                      <span class="tp-icon">P</span>
+                      <span class="tp-text">tp-link</span>
+                    </div>
+                    <div class="dongle-pic">
+                      <svg viewBox="0 0 45 45" fill="none">
+                        <path d="M12 28 L24 28 L24 40 L12 40 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+                        <line x1="18" y1="28" x2="32" y2="6" stroke="#0284c7" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M28 20 C32 18 36 20 38 24" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M32 14 C38 12 44 16 46 22" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION B: KONFIGURASI CCTV (Green) -->
+            <div class="poster-box box-b">
+              <div class="box-header header-green">
+                <div class="box-title-wrap">
+                  <span class="box-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                  </span>
+                  <h3>B. KONFIGURASI CCTV</h3>
+                </div>
+              </div>
+
+              <div class="box-content-split">
+                <!-- Checklist Lines -->
+                <ul class="poster-check-list">
+                  <li id="p_item_b1"><span class="box-check"></span><span class="txt">Setting watermark</span></li>
+                  <li id="p_item_b2"><span class="box-check"></span><span class="txt">Penamaan CCTV</span></li>
+                  <li id="p_item_b3"><span class="box-check"></span><span class="txt">Setting date &amp; time CCTV</span></li>
+                  <li id="p_item_b4"><span class="box-check"></span><span class="txt">Sinkronisasi waktu dengan PC/NTP</span></li>
+                  <li id="p_item_b5"><span class="box-check"></span><span class="txt">Setting IP CCTV sesuai penempatan</span></li>
+                  <li id="p_item_b6"><span class="box-check"></span><span class="txt">Adding camera</span></li>
+                  <li id="p_item_b7"><span class="box-check"></span><span class="txt">Adjustment CCTV</span></li>
+                  <li id="p_item_b8"><span class="box-check"></span><span class="txt">Troubleshooting (jika ada)</span></li>
+                </ul>
+
+                <!-- Illustration Art for Dome Camera & Gear Seal -->
+                <div class="box-art-column">
+                  <div class="art-dome-wrap">
+                    <!-- High-tech Dome Security Camera Vector -->
+                    <svg viewBox="0 0 100 95" fill="none">
+                      <!-- Base Mount Flange -->
+                      <ellipse cx="50" cy="22" rx="42" ry="12" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+                      <ellipse cx="50" cy="28" rx="38" ry="10" fill="#f8fafc"/>
+                      <!-- Camera Body Turret -->
+                      <path d="M18 28 C18 62 82 62 82 28 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+                      <!-- Black Glass Inner Dome Ball -->
+                      <ellipse cx="50" cy="46" rx="28" ry="24" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+                      <!-- Lens Bezel -->
+                      <ellipse cx="50" cy="48" rx="14" ry="12" fill="#1e293b"/>
+                      <circle cx="50" cy="48" r="7" fill="#0284c7"/>
+                      <circle cx="48" cy="46" r="2.5" fill="#38bdf8"/>
+                    </svg>
+                  </div>
+                  <div class="art-gear-badge">
+                    <svg viewBox="0 0 45 45" fill="none">
+                      <circle cx="22.5" cy="22.5" r="20" fill="#16a34a"/>
+                      <circle cx="22.5" cy="22.5" r="16" fill="#15803d"/>
+                      <path d="M14 22.5 L20 28.5 L31 16.5" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION C: PC CLIENT (Orange) -->
+            <div class="poster-box box-c">
+              <div class="box-header header-orange">
+                <div class="box-title-wrap">
+                  <span class="box-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                  </span>
+                  <h3>C. PC CLIENT</h3>
+                </div>
+              </div>
+
+              <div class="box-content-split">
+                <!-- Checklist Lines -->
+                <ul class="poster-check-list">
+                  <li id="p_item_c1"><span class="box-check"></span><span class="txt">Instalasi &amp; konfigurasi PC client</span></li>
+                  <li id="p_item_c2"><span class="box-check"></span><span class="txt">Setting date &amp; time sesuai NTP site</span></li>
+                  <li id="p_item_c3"><span class="box-check"></span><span class="txt">Setting IP PC client</span></li>
+                  <li id="p_item_c4"><span class="box-check"></span><span class="txt">Koneksi PC ke Wi-Fi setempat</span></li>
+                  <li id="p_item_c5"><span class="box-check"></span><span class="txt">Instalasi remote access (RustDesk/UltraViewer)</span></li>
+                  <li id="p_item_c6"><span class="box-check"></span><span class="txt">Instalasi software CWERK dari folder C:\NVR</span></li>
+                  <li id="p_item_c7"><span class="box-check"></span><span class="txt">Menampilkan CCTV pada monitor 50"</span></li>
+                  <li id="p_item_c8"><span class="box-check"></span><span class="txt">Memastikan seluruh CCTV tampil normal</span></li>
+                </ul>
+
+                <!-- Illustration Art for Workstation & 50" Display -->
+                <div class="box-art-column">
+                  <div class="art-pc-workstation">
+                    <!-- Desktop PC & Surveillance View Screen -->
+                    <svg viewBox="0 0 110 75" fill="none">
+                      <!-- Monitor Display -->
+                      <rect x="4" y="6" width="68" height="42" rx="3" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+                      <rect x="7" y="9" width="62" height="36" fill="#1e293b"/>
+                      <!-- Multi-cam split tiles -->
+                      <rect x="9" y="11" width="18" height="15" fill="#334155"/>
+                      <rect x="29" y="11" width="18" height="15" fill="#334155"/>
+                      <rect x="49" y="11" width="18" height="15" fill="#334155"/>
+                      <rect x="9" y="28" width="18" height="15" fill="#334155"/>
+                      <rect x="29" y="28" width="18" height="15" fill="#334155"/>
+                      <rect x="49" y="28" width="18" height="15" fill="#334155"/>
+                      <!-- Monitor Stand -->
+                      <path d="M34 48 L42 48 L44 58 L32 58 Z" fill="#64748b"/>
+                      <ellipse cx="38" cy="58" rx="14" ry="3" fill="#475569"/>
+                      <!-- PC Tower -->
+                      <rect x="78" y="4" width="28" height="56" rx="2" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+                      <line x1="84" y1="12" x2="98" y2="12" stroke="#0ea5e9" stroke-width="2"/>
+                      <circle cx="92" cy="22" r="3" fill="#0ea5e9"/>
+                      <!-- Keyboard & Mouse -->
+                      <rect x="10" y="64" width="55" height="7" rx="1.5" fill="#334155"/>
+                      <ellipse cx="74" cy="67" rx="4" ry="5" fill="#475569"/>
+                    </svg>
+                  </div>
+                  <div class="art-cwerk-row">
+                    <div class="cwerk-pill">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                      <span>CWERK</span>
+                    </div>
+                    <div class="monitor-size-badge">50"</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION D: FINAL CHECK & PENUTUP (Purple) -->
+            <div class="poster-box box-d">
+              <div class="box-header header-purple">
+                <div class="box-title-wrap">
+                  <span class="box-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </span>
+                  <h3>D. FINAL CHECK &amp; PENUTUP</h3>
+                </div>
+              </div>
+
+              <div class="box-content-split">
+                <!-- Checklist Lines -->
+                <ul class="poster-check-list">
+                  <li id="p_item_d1"><span class="box-check"></span><span class="txt">Seluruh CCTV online</span></li>
+                  <li id="p_item_d2"><span class="box-check"></span><span class="txt">Live view normal</span></li>
+                  <li id="p_item_d3"><span class="box-check"></span><span class="txt">Recording &amp; playback normal</span></li>
+                  <li id="p_item_d4"><span class="box-check"></span><span class="txt">HDD terdeteksi</span></li>
+                  <li id="p_item_d5"><span class="box-check"></span><span class="txt">Date &amp; time sinkron</span></li>
+                  <li id="p_item_d6"><span class="box-check"></span><span class="txt">PC client &amp; monitor normal</span></li>
+                  <li id="p_item_d7"><span class="box-check"></span><span class="txt">Remote access berfungsi</span></li>
+                  <li id="p_item_d8"><span class="box-check"></span><span class="txt">Dokumentasi seluruh sistem</span></li>
+                  <li id="p_item_d9"><span class="box-check"></span><span class="txt">Serah terima ke PIC site</span></li>
+                </ul>
+
+                <!-- Illustration Art for Multi-Screen & Verified Seal -->
+                <div class="box-art-column">
+                  <div class="art-wall-monitor">
+                    <svg viewBox="0 0 115 75" fill="none">
+                      <!-- 16-Cam Big Video Wall Screen -->
+                      <rect x="4" y="4" width="107" height="56" rx="3" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+                      <!-- 4x4 Grid of CCTV feeds -->
+                      <g fill="#1e293b" stroke="#0f172a" stroke-width="1">
+                        <rect x="7" y="7" width="24" height="11"/>
+                        <rect x="33" y="7" width="24" height="11"/>
+                        <rect x="59" y="7" width="24" height="11"/>
+                        <rect x="85" y="7" width="23" height="11"/>
+                        
+                        <rect x="7" y="20" width="24" height="11"/>
+                        <rect x="33" y="20" width="24" height="11"/>
+                        <rect x="59" y="20" width="24" height="11"/>
+                        <rect x="85" y="20" width="23" height="11"/>
+                        
+                        <rect x="7" y="33" width="24" height="11"/>
+                        <rect x="33" y="33" width="24" height="11"/>
+                        <rect x="59" y="33" width="24" height="11"/>
+                        <rect x="85" y="33" width="23" height="11"/>
+
+                        <rect x="7" y="46" width="24" height="11"/>
+                        <rect x="33" y="46" width="24" height="11"/>
+                        <rect x="59" y="46" width="24" height="11"/>
+                        <rect x="85" y="46" width="23" height="11"/>
+                      </g>
+                      <!-- Base Stand -->
+                      <path d="M48 60 L67 60 L72 68 L43 68 Z" fill="#475569"/>
+                    </svg>
+                  </div>
+
+                  <!-- Verified Normal Green Badge -->
+                  <div class="art-all-normal-seal" id="posterVerifiedSeal">
+                    <div class="seal-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <div class="seal-text">
+                      <span>SEMUA SISTEM</span>
+                      <strong>BERFUNGSI NORMAL</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ================= BOTTOM SECTION: CATATAN, STATUS & KONFIRMASI ================= -->
+          <div class="poster-bottom-row">
+            
+            <!-- Col 1: Catatan / Kendala -->
+            <div class="bottom-box box-notes">
+              <div class="bottom-box-title title-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                <span>CATATAN / KENDALA</span>
+              </div>
+              <div class="notes-content-ruled">
+                <div class="ruled-line" id="p_catatan_line1"></div>
+                <div class="ruled-line" id="p_catatan_line2"></div>
+                <div class="ruled-line" id="p_catatan_line3"></div>
+                <div class="ruled-line" id="p_catatan_line4"></div>
+              </div>
+            </div>
+
+            <!-- Col 2: Status Pekerjaan -->
+            <div class="bottom-box box-status">
+              <div class="bottom-box-title title-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="13" x2="15" y2="13"></line><line x1="9" y1="17" x2="13" y2="17"></line></svg>
+                <span>STATUS PEKERJAAN</span>
+              </div>
+              <div class="status-checklist">
+                <div class="status-row" id="p_status_selesai">
+                  <span class="box-check"></span>
+                  <span>Selesai</span>
+                </div>
+                <div class="status-row" id="p_status_catatan">
+                  <span class="box-check"></span>
+                  <span>Selesai dengan catatan</span>
+                </div>
+                <div class="status-row" id="p_status_belum">
+                  <span class="box-check"></span>
+                  <span>Belum selesai</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 3: Teknisi (Nama, Tanda Tangan Fisik, Tanggal) -->
+            <div class="bottom-box box-sig">
+              <div class="bottom-box-title title-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>TEKNISI</span>
+              </div>
+              <div class="sig-card-content">
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Nama</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val" id="p_sig_teknisi_name">-</span>
+                </div>
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Tanda tangan</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val sf-line-sign">...................................................</span>
+                </div>
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Tanggal</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val" id="p_sig_teknisi_date">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 4: PIC Site (Nama, Tanda Tangan Fisik, Tanggal) -->
+            <div class="bottom-box box-sig">
+              <div class="bottom-box-title title-teal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                <span>PIC SITE</span>
+              </div>
+              <div class="sig-card-content">
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Nama</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val" id="p_sig_pic_name">-</span>
+                </div>
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Tanda tangan</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val sf-line-sign">...................................................</span>
+                </div>
+                <div class="sig-field-row">
+                  <span class="sf-lbl">Tanggal</span>
+                  <span class="sf-colon">:</span>
+                  <span class="sf-val" id="p_sig_pic_date">-</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Poster Footer Bar (Navy with Slogan & Yellow/Blue Accent Triangles) -->
+          <footer class="poster-footer-banner">
+            <div class="footer-slogan">
+              <span>PROFESIONAL</span>
+              <span class="dot">•</span>
+              <span>AKURAT</span>
+              <span class="dot">•</span>
+              <span>TERPERCAYA</span>
+            </div>
+            <!-- Geometric Triangle Accents from original graphic -->
+            <div class="footer-accents">
+              <div class="accent-triangle-blue"></div>
+              <div class="accent-triangle-yellow"></div>
+            </div>
+          </footer>
+
+        </div>
+        <!-- ================= END POSTER ELEMENT ================= -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= MODALS ================= -->
+  
+  <!-- GAS Settings Modal -->
+  <div class="modal-overlay" id="gasModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <h3>Pengaturan Google Apps Script (GAS)</h3>
+        </div>
+        <button type="button" class="modal-close" id="btnCloseGasModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          Hubungkan aplikasi ini ke Google Spreadsheet Anda menggunakan URL Web App dari Google Apps Script (<code>Code.gs</code>).
+        </p>
+
+        <div class="form-group">
+          <label for="gasUrlInput">URL Web App Google Apps Script</label>
+          <input type="url" id="gasUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
+          <small class="field-hint">Pastikan Web App di-deploy dengan opsi <strong>"Who has access: Anyone"</strong>.</small>
+        </div>
+
+        <div class="connection-status-box" id="gasStatusBox" style="display:none;">
+          <span class="status-indicator"></span>
+          <span class="status-text" id="gasStatusText">Belum diuji</span>
+        </div>
+
+        <div class="modal-guide-card">
+          <h4>💡 Cara Singkat Mendapatkan URL:</h4>
+          <ol>
+            <li>Buka Google Spreadsheet baru di Drive Anda.</li>
+            <li>Klik menu <strong>Ekstensi &gt; Apps Script</strong>.</li>
+            <li>Salin seluruh kode dari file <code>Code.gs</code> ke editor.</li>
+            <li>Jalankan fungsi <code>setupSheet</code> 1x, lalu klik <strong>Deploy &gt; New deployment</strong>.</li>
+            <li>Pilih Type: <strong>Web App</strong>, Execute as: <strong>Me</strong>, Who has access: <strong>Anyone</strong>.</li>
+            <li>Salin URL Web App yang berakhiran <code>/exec</code> lalu tempel di atas.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-outline" id="btnTestGas">Tes Koneksi</button>
+        <button type="button" class="btn-primary" id="btnSaveGas">Simpan Pengaturan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay / Processing Modal -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <h4 id="loadingTitle">Memproses Dokumen...</h4>
+      <p id="loadingDesc">Sedang merender hasil gambar resolusi tinggi.</p>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
