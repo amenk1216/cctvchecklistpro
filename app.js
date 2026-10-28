@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Default Backend URL Google Apps Script yang sudah aktif
   const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbyaC89OWgsrXc-BsxUepgE8V2fVCU-H8yvVJxgfnJhQF0SbjzOF9rpOLYJEI0LUK8oY/exec';
 
-  const TOTAL_CHECKLIST_COUNT = 35; // 10 (A) + 8 (B) + 8 (C) + 9 (D)
+  const TOTAL_CHECKLIST_COUNT = 36; // 10 (A) + 8 (B) + 8 (C) + 10 (D)
 
   // DOM Elements: Header Controls
   const headerProgressBar = document.getElementById('headerProgressBar');
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerProgressCount.textContent = `(${checkedCount}/${TOTAL_CHECKLIST_COUNT} Item)`;
 
     // Verified seals condition
-    const isVerified = (sectionDChecked >= 9) || (percent === 100);
+    const isVerified = (sectionDChecked >= 10) || (percent === 100);
     if (isVerified) {
       allSystemsOkBanner.classList.add('active');
       posterVerifiedSeal.style.filter = 'none';
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sectionA: `${sectionAChecked}/10`,
       sectionB: `${sectionBChecked}/8`,
       sectionC: `${sectionCChecked}/8`,
-      sectionD: `${sectionDChecked}/9`
+      sectionD: `${sectionDChecked}/10`
     };
   }
 
@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    showLoading('Menyimpan ke Google Sheets...', 'Sedang mengirim data checklist ke spreadsheet.');
+    showLoading('Menyimpan File...', 'Sedang memproses dan menyimpan data formulir.');
 
     try {
       const stats = calculateProgress();
@@ -529,9 +529,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (result.status === 'success' || result.status === 'ok') {
-          showToast('Data berhasil disimpan ke Google Sheets!', 'success');
+          showToast('Data berhasil disimpan!', 'success');
         } else {
-          showToast('Data berhasil dikirim ke Google Apps Script.', 'success');
+          showToast('Data berhasil disimpan ke sistem.', 'success');
         }
       } catch (postErr) {
         // Fallback using no-cors
@@ -541,12 +541,12 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify(payload),
           headers: { 'Content-Type': 'text/plain;charset=utf-8' }
         });
-        showToast('Data berhasil dikirim ke Google Sheets (Mode Tanpa Hambatan)!', 'success');
+        showToast('Data berhasil disimpan ke sistem (Mode Tanpa Hambatan)!', 'success');
       }
 
     } catch (err) {
       console.error(err);
-      showToast(`Gagal menyimpan ke Google Sheets: ${err.message}`, 'error');
+      showToast(`Gagal menyimpan file: ${err.message}`, 'error');
     } finally {
       hideLoading();
     }
