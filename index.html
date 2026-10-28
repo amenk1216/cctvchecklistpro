@@ -81,14 +81,6 @@
           Isi Contoh
         </button>
 
-        <button id="btnGasSettings" class="action-btn btn-outline" title="Pengaturan URL Google Apps Script">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-          </svg>
-          GAS
-        </button>
-
         <button id="btnExportImage" class="action-btn btn-primary" title="Export sebagai gambar PNG kualitas tinggi">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -556,6 +548,26 @@
               </div>
             </div>
 
+            <!-- Tombol Aksi Cepat di Bagian Bawah Formulir Input -->
+            <div class="form-actions-bottom">
+              <button type="button" class="action-btn btn-secondary" id="btnFormViewPreview">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Lihat Poster Hasil
+              </button>
+              <button type="button" class="action-btn btn-primary" id="btnFormExportImage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Export Gambar (PNG)
+              </button>
+              <button type="button" class="action-btn btn-secondary" id="btnFormExportPdf">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Simpan PDF
+              </button>
+              <button type="button" class="action-btn btn-success" id="btnFormSubmitGas">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                Simpan ke Sheets
+              </button>
+            </div>
+
           </div>
         </div>
 
@@ -984,10 +996,7 @@
                 <span>CATATAN / KENDALA</span>
               </div>
               <div class="notes-content-ruled">
-                <div class="ruled-line" id="p_catatan_line1"></div>
-                <div class="ruled-line" id="p_catatan_line2"></div>
-                <div class="ruled-line" id="p_catatan_line3"></div>
-                <div class="ruled-line" id="p_catatan_line4"></div>
+                <div class="notes-text-area" id="p_catatan_text"></div>
               </div>
             </div>
 
@@ -1089,50 +1098,11 @@
 
   <!-- ================= MODALS ================= -->
   
-  <!-- GAS Settings Modal -->
-  <div class="modal-overlay" id="gasModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-          <h3>Pengaturan Google Apps Script (GAS)</h3>
-        </div>
-        <button type="button" class="modal-close" id="btnCloseGasModal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p class="modal-desc">
-          Hubungkan aplikasi ini ke Google Spreadsheet Anda menggunakan URL Web App dari Google Apps Script (<code>Code.gs</code>).
-        </p>
-
-        <div class="form-group">
-          <label for="gasUrlInput">URL Web App Google Apps Script</label>
-          <input type="url" id="gasUrlInput" value="https://script.google.com/macros/s/AKfycbyaC89OWgsrXc-BsxUepgE8V2fVCU-H8yvVJxgfnJhQF0SbjzOF9rpOLYJEI0LUK8oY/exec">
-          <small class="field-hint">Backend Google Apps Script aktif dan terhubung.</small>
-        </div>
-
-        <div class="connection-status-box" id="gasStatusBox" style="display:none;">
-          <span class="status-indicator"></span>
-          <span class="status-text" id="gasStatusText">Belum diuji</span>
-        </div>
-
-        <div class="modal-guide-card">
-          <h4>💡 Cara Singkat Mendapatkan URL:</h4>
-          <ol>
-            <li>Buka Google Spreadsheet baru di Drive Anda.</li>
-            <li>Klik menu <strong>Ekstensi &gt; Apps Script</strong>.</li>
-            <li>Salin seluruh kode dari file <code>Code.gs</code> ke editor.</li>
-            <li>Jalankan fungsi <code>setupSheet</code> 1x, lalu klik <strong>Deploy &gt; New deployment</strong>.</li>
-            <li>Pilih Type: <strong>Web App</strong>, Execute as: <strong>Me</strong>, Who has access: <strong>Anyone</strong>.</li>
-            <li>Salin URL Web App yang berakhiran <code>/exec</code> lalu tempel di atas.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-outline" id="btnTestGas">Tes Koneksi</button>
-        <button type="button" class="btn-primary" id="btnSaveGas">Simpan Pengaturan</button>
-      </div>
-    </div>
-  </div>
+  <!-- ================= KONFIGURASI BACKEND ================= -->
+  <!-- URL Backend Google Apps Script (Ubah langsung di script ini jika ganti database) -->
+  <script>
+    window.GAS_BACKEND_URL = "https://script.google.com/macros/s/AKfycbyaC89OWgsrXc-BsxUepgE8V2fVCU-H8yvVJxgfnJhQF0SbjzOF9rpOLYJEI0LUK8oY/exec";
+  </script>
 
   <!-- Loading Overlay / Processing Modal -->
   <div class="loading-overlay" id="loadingOverlay">
