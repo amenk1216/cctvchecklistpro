@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Default Backend URL Google Apps Script yang sudah aktif
   const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbyaC89OWgsrXc-BsxUepgE8V2fVCU-H8yvVJxgfnJhQF0SbjzOF9rpOLYJEI0LUK8oY/exec';
 
-  const TOTAL_CHECKLIST_COUNT = 36; // 10 (A) + 8 (B) + 8 (C) + 10 (D)
+  const TOTAL_CHECKLIST_COUNT = 37; // 10 (A) + 8 (B) + 8 (C) + 11 (D)
 
   // DOM Elements: Header Controls
   const headerProgressBar = document.getElementById('headerProgressBar');
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerProgressCount.textContent = `(${checkedCount}/${TOTAL_CHECKLIST_COUNT} Item)`;
 
     // Verified seals condition
-    const isVerified = (sectionDChecked >= 10) || (percent === 100);
+    const isVerified = (sectionDChecked >= 11) || (percent === 100);
     if (isVerified) {
       allSystemsOkBanner.classList.add('active');
       posterVerifiedSeal.style.filter = 'none';
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sectionA: `${sectionAChecked}/10`,
       sectionB: `${sectionBChecked}/8`,
       sectionC: `${sectionCChecked}/8`,
-      sectionD: `${sectionDChecked}/10`
+      sectionD: `${sectionDChecked}/11`
     };
   }
 
