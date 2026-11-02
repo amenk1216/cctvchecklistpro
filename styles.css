@@ -1266,6 +1266,21 @@ textarea:focus {
   border-color: #8b5cf6;
 }
 
+.box-d .poster-check-list {
+  gap: 3.5px;
+}
+
+.box-d .poster-check-list li {
+  font-size: 10.5px;
+  gap: 6px;
+  line-height: 1.22;
+}
+
+.box-d .poster-check-list li .box-check {
+  width: 13.5px;
+  height: 13.5px;
+}
+
 .poster-check-list li.checked .box-check::after,
 .status-row.checked .box-check::after {
   content: "";
